@@ -1,0 +1,64 @@
+import React, { useState, useRef, useEffect } from 'react';
+import './Navbar.css';
+import user1 from '../assets/Image/Profil/user1.jpeg';
+import defaultUser from '../assets/default-user.jpeg';
+
+const Navbar = () => {
+  const [loggedIn, setLoggedIn] = useState(true);
+  const [dropdown, setDropdown] = useState(false);
+  const profileRef = useRef(null);
+
+  const handleProfileClick = () => {
+    setDropdown(!dropdown);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <nav className="navbar">
+      <div className="logo" onClick={() => window.location.reload()}>
+        El-Lapor
+      </div>
+
+      <div className="nav-wrapper">
+        <ul className="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#pengaduan">Pengaduan</a></li>
+          <li><a href="#riwayat">Riwayat</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div className="profile-wrapper" ref={profileRef} onClick={handleProfileClick}>
+        <div className="profile-text">
+          {loggedIn ? "Hi, Putri" : "Hi, ?"}
+          <p>{loggedIn ? "Apakah ada laporan hari ini?" : "Apakah sudah daftar hari ini?"}</p>
+        </div>
+        <img
+          src={loggedIn ? user1 : defaultUser}
+          className="profile-image"
+          alt="profile"
+        />
+        {dropdown && (
+          <div className="dropdown">
+            <a href={loggedIn ? "#account" : "#login"}>Account</a>
+            <a href="#logout">Logout</a>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
