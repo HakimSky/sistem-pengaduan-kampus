@@ -59,7 +59,7 @@
   .profile-text {
     display:flex;
     flex-direction:column;
-    font-size: 13px;
+    font-size: 15px;
     color: #00d9ff;
     padding-left: 15px;
     text-align: left;
@@ -85,7 +85,7 @@
     right: 0;
     background-color: #66dbff;
     color: black;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
     display: flex;
     flex-direction: column;

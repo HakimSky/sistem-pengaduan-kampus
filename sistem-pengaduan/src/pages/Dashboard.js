@@ -11,7 +11,8 @@ const Dashboard = () => {
         <section className="card welcome">
           <div className="text">
             <h3>Halo, Selamat Datang</h3>
-            <p>Temukan solusi untuk setiap keluhan akademikmu.</p>
+            <p>Temukan solusi untuk </p>
+            <p>setiap keluhan akademikmu.</p>
             <p className="subtext">Laporkan masalahmu dengan mudah dan transparan</p>
             <a className="btn" href="/form">Lapor</a>
           </div>

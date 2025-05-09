@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Navbar.css';
 import user1 from '../assets/Image/Profil/user1.jpeg';
-import defaultUser from '../assets/default-user.jpeg';
+import defaultUser from '../assets/default-user.png';
 
 const Navbar = () => {
   const [loggedIn, setLoggedIn] = useState(true);
