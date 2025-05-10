@@ -16,11 +16,11 @@ class AdminVerifikasi(models.Model):
     waktu_verifikasi = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.admin.username} - {self.status_verifikasi} - {self.pengaduan.kategori}"
-    
+        return f"{self.admin.username} - {self.status_verifikasi} - {self.pengaduan.kategori}"    
+
 class AdminManajemenAkun(models.Model):
     admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # ✅ Pakai AUTH_USER_MODEL
-    pengguna = models.ForeignKey(User, on_delete=models.CASCADE, related_name="akun_dikelola")
+    pengguna = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="akun_dikelola")  # ✅ Pakai AUTH_USER_MODEL
     aksi = models.CharField(max_length=50, choices=[
         ('Hapus Akun', 'Hapus Akun'),
         ('Ubah Peran', 'Ubah Peran')
