@@ -1,5 +1,4 @@
 from django.db import models
-from pihak_kampus.models import PihakKampus
 from pengaduan.models import Pengaduan
 
 class PihakKampus(models.Model):

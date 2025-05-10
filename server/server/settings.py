@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'feedback',
     'riwayat_pengaduan',
     'admin_panel',
+    'notifikasi',
 
 ]
 
