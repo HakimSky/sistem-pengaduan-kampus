@@ -1,6 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User, settings
+from django.contrib.auth.models import User
 from pengaduan.models import Pengaduan
+from django.conf import settings  # Impor settings
+
 
 class AdminVerifikasi(models.Model):
     admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # ✅ Pakai AUTH_USER_MODEL
