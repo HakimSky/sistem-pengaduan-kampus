@@ -1,18 +1,20 @@
 from django.db import models
-
-STATUS_CHOICES = [
-    ('Menunggu', 'Menunggu'),
-    ('Diproses', 'Diproses'),
-    ('Selesai', 'Selesai'),
-]
-
-VERIFIKASI_CHOICES = [
-    ('Belum Diverifikasi', 'Belum Diverifikasi'),
-    ('Diterima', 'Diterima'),
-    ('Ditolak', 'Ditolak')
-]
+from .models import WargaKampus
 
 class Pengaduan(models.Model):
+    STATUS_CHOICES = [
+        ('Menunggu', 'Menunggu'),
+        ('Diproses', 'Diproses'),
+        ('Selesai', 'Selesai'),
+    ]
+
+    VERIFIKASI_CHOICES = [
+        ('Belum Diverifikasi', 'Belum Diverifikasi'),
+        ('Diterima', 'Diterima'),
+        ('Ditolak', 'Ditolak'),
+    ]
+
+    pelapor = models.ForeignKey(WargaKampus, on_delete=models.CASCADE)
     kategori = models.CharField(max_length=100)
     deskripsi = models.TextField()
     gambar = models.ImageField(upload_to="pengaduan_images/", null=True, blank=True)
