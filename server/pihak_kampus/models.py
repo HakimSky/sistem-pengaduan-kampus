@@ -1,9 +1,18 @@
-# pihak_kampus/models.py
 from django.db import models
-from django.contrib.auth import get_user_model
+from warga_kampus.models import User
 
-User = get_user_model()
+class Department(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    
+    def __str__(self):
+        return self.name
 
-class PihakKampus(models.Model):
+class PihakKampusProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    nama_instansi = models.CharField(default="UMS", max_length=100)
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
+    position = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.position} ({self.department})"
