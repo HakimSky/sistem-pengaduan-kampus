@@ -1,11 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Login(models.Model):
-    username = models.CharField(max_length=150, unique=True)
-    password = models.CharField(max_length=255)  # Disarankan untuk menggunakan hashing dalam penyimpanan password
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    password = models.CharField(max_length=255)  # Password harus disimpan dengan hashing
 
     def __str__(self):
-        return self.username
+        return self.user.username
 
 class Register(models.Model):
     full_name = models.CharField(max_length=255)

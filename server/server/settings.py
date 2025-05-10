@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'warga_kampus',
     'pihak_kampus',
     'login',
+    'feedback',
+    'riwayat_pengaduan',
+    'admin_panel',
 
 ]
 

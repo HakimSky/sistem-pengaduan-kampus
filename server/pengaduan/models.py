@@ -1,5 +1,5 @@
 from django.db import models
-from .models import WargaKampus
+from warga_kampus.models import WargaKampus
 
 class Pengaduan(models.Model):
     STATUS_CHOICES = [
@@ -20,8 +20,8 @@ class Pengaduan(models.Model):
     gambar = models.ImageField(upload_to="pengaduan_images/", null=True, blank=True)
     lokasi = models.CharField(max_length=255)
     tanggal_kejadian = models.DateField()
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Menunggu')
-    verifikasi = models.CharField(max_length=20, choices=VERIFIKASI_CHOICES, default='Belum Diverifikasi')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Menunggu', editable=False)
+    verifikasi = models.CharField(max_length=20, choices=VERIFIKASI_CHOICES, default='Belum Diverifikasi', editable=False)
 
     def __str__(self):
         return f"{self.kategori} - {self.verifikasi} - {self.status}"
