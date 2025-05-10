@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import './Dashboard.css';
+import chartImg from '../assets/Image/chart.png';
 
 const Dashboard = () => {
   return (
@@ -8,7 +9,7 @@ const Dashboard = () => {
       <Navbar />
       <div className="dashboard" id="home">
         {/* Section Home */}
-        <section className="card welcome">
+        <section className="card welcome" id="pengaduan">
           <div className="text">
             <h3>Halo, Selamat Datang</h3>
             <p>Temukan solusi untuk </p>
@@ -16,14 +17,19 @@ const Dashboard = () => {
             <p className="subtext">Laporkan masalahmu dengan mudah dan transparan</p>
             <a className="btn" href="/form">Lapor</a>
           </div>
-          <img src="/assets/chart.png" alt="grafik" />
+          <img 
+          className='Icon-image'
+          src={chartImg} alt="Chart" />
         </section>
 
         {/* Section Riwayat */}
         <section className="card riwayat" id="riwayat">
           <div className="text">
-            <h4>Riwayat Pengaduan</h4>
-            <p>Lacak status aduanmu di sini. Pastikan setiap permasalahan terselesaikan dengan baik.</p>
+            <h3>Riwayat Pengaduan</h3>
+            <p>Lacak status aduanmu di sini</p>
+            <p>Pastikan setiap permasalahan</p>
+            <p>terselesaikan dengan baik.</p>
+            <p className="subtext">Tetaplah terinformasi dengan perkembangan setiap pengaduanmu</p>
             <a className="btn" href="/riwayat">Riwayat</a>
           </div>
           <img src="/assets/tracking.png" alt="tracking" />
@@ -32,23 +38,25 @@ const Dashboard = () => {
         {/* Section About */}
         <section className="card about" id="about">
           <div className="text">
-            <h4>Tentang El-Lapor</h4>
-            <p>
-              El-Lapor adalah sistem pengaduan kampus berbasis digital yang dirancang untuk mempermudah mahasiswa dalam menyampaikan keluhan akademik maupun fasilitas kampus. Sistem ini dibuat untuk mendorong keterbukaan, kecepatan, dan transparansi dalam penyelesaian masalah.
-            </p>
+            <h3>About</h3>
+            <p>Sistem Pengaduan yang</p>
+            <p>dirancang untuk memudahkan</p>
+            <p>dalam laporkan masalah</p>
+            <p>akademik dan fasilitas kampus</p>
+            <p className="subtext">Komitmen untuk memberikan layanan yang cepat,transparan, dan responsif</p>
           </div>
         </section>
 
         {/* Section Contact */}
         <section className="card contact" id="contact">
           <div className="text">
-            <h4>Kontak Kami</h4>
-            <p>
+            <h3>Contact</h3>
+            <p1>
               Untuk pertanyaan lebih lanjut, silakan hubungi kami melalui:
-              <br />📧 Email: help@kampus.ac.id
+              <br />📧 Email: kampus@student.ums.ac.id
               <br />📞 Telp: (0271) 123456
               <br />🕘 Jam Operasional: Senin - Jumat (08.00 - 16.00 WIB)
-            </p>
+            </p1>
           </div>
         </section>
       </div>

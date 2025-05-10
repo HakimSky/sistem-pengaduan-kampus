@@ -1,0 +1,120 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f8fcff;
+}
+
+.auth-box {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 350px;
+}
+
+.auth-box h2 {
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.input-icon {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  background: #fff;
+}
+
+.input-icon svg {
+  margin-right: 10px;
+  color: #888;
+}
+
+.input-icon input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+}
+
+.btn-auth {
+  width: 100%;
+  padding: 12px;
+  background: #00ccff;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-auth-outline {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid white;
+  background: #00ccff;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.social-login button {
+  border: none;
+  background: #ddd;
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.or-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 15px 0;
+}
+
+.or-divider::before,
+.or-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #ddd;
+}
+
+.or-divider:not(:empty)::before {
+  margin-right: 10px;
+}
+
+.or-divider:not(:empty)::after {
+  margin-left: 10px;
+}
+
+.auth-page {
+  display: flex;
+  height: 100vh;
+}
+
+.auth-left,
+.auth-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e6f7ff;
+}
+
+.auth-right {
+  background-color: #f8fcff;
+}
+
