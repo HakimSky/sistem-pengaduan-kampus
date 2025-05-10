@@ -1,7 +1,4 @@
 from django.contrib import admin
-from .models import PihakKampus
-
-from django.contrib import admin
 from .models import PihakKampus, PihakKampusPengaduan
 
 @admin.register(PihakKampus)

@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import PihakKampus, PihakKampusPengaduan
+from .serializers import PihakKampusSerializer, PihakKampusPengaduanSerializer
 
-# Create your views here.
+class PihakKampusViewSet(viewsets.ModelViewSet):
+    queryset = PihakKampus.objects.all()
+    serializer_class = PihakKampusSerializer
+
+class PihakKampusPengaduanViewSet(viewsets.ModelViewSet):
+    queryset = PihakKampusPengaduan.objects.all()
+    serializer_class = PihakKampusPengaduanSerializer

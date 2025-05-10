@@ -1,6 +1,4 @@
 from django.db import models
-
-from django.db import models
 from warga_kampus.models import WargaKampus
 
 class Notifikasi(models.Model):

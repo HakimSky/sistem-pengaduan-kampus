@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import WargaKampus
+from .serializers import WargaKampusSerializer
 
-# Create your views here.
+class WargaKampusViewSet(viewsets.ModelViewSet):
+    queryset = WargaKampus.objects.all()
+    serializer_class = WargaKampusSerializer
