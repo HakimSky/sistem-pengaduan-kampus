@@ -5,8 +5,17 @@ from notifikasi.models import Notifikasi
 from pihak_kampus.models import PihakKampusPengaduan
 
 @receiver(post_save, sender=Pengaduan)
-def buat_notifikasi_pengaduan(sender, instance, **kwargs):
-    if instance.verifikasi == "Diterima":  # Notifikasi hanya dikirim jika admin sudah memverifikasi
+def notifikasi_pengaduan_dibuat(sender, instance, created, **kwargs):
+    if created:  # Notifikasi muncul saat pengaduan dibuat
+        Notifikasi.objects.create(
+            penerima=instance.pelapor, 
+            jenis="Pengaduan",
+            pesan=f"Pengaduan '{instance.kategori}' telah dibuat dan sedang menunggu verifikasi."
+        )
+
+@receiver(post_save, sender=Pengaduan)
+def notifikasi_pengaduan_terverifikasi(sender, instance, **kwargs):
+    if instance.verifikasi == "Diterima":  # Notifikasi hanya dikirim setelah admin memverifikasi
         Notifikasi.objects.create(
             penerima=instance.pelapor, 
             jenis="Verifikasi",
@@ -14,8 +23,8 @@ def buat_notifikasi_pengaduan(sender, instance, **kwargs):
         )
 
 @receiver(post_save, sender=PihakKampusPengaduan)
-def buat_notifikasi_selesai(sender, instance, **kwargs):
-    if instance.status_kampus == "Selesai":
+def notifikasi_pengaduan_selesai(sender, instance, **kwargs):
+    if instance.status_kampus == "Selesai":  # Notifikasi setelah status selesai
         Notifikasi.objects.create(
             penerima=instance.pengaduan.pelapor, 
             jenis="Sistem",

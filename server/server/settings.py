@@ -63,6 +63,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'server.urls'
 
+AUTH_USER_MODEL = 'login.CustomUser'  # Jika aplikasi bernama 'users'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

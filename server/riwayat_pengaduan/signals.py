@@ -5,10 +5,10 @@ from pihak_kampus.models import PihakKampusPengaduan
 from riwayat_pengaduan.models import RiwayatPengaduan
 
 @receiver(post_save, sender=Pengaduan)
-def buat_riwayat_pengaduan(sender, instance, **kwargs):
-    if instance.verifikasi == 'Diterima':  # Hanya pengaduan yang sudah diverifikasi masuk ke riwayat
+def riwayat_setelah_verifikasi_admin(sender, instance, **kwargs):
+    if instance.verifikasi == 'Diterima':  # Hanya pengaduan yang telah diverifikasi masuk riwayat
         RiwayatPengaduan.objects.create(pengaduan=instance, status=instance.status)
 
 @receiver(post_save, sender=PihakKampusPengaduan)
-def update_riwayat_pengaduan(sender, instance, **kwargs):
+def riwayat_setelah_pihak_kampus_memproses(sender, instance, **kwargs):
     RiwayatPengaduan.objects.create(pengaduan=instance.pengaduan, status=instance.status_kampus)
