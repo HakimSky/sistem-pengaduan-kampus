@@ -16,6 +16,15 @@ const Navbar = () => {
     setDropdown(!dropdown);
   };
 
+  const handleAccount = () => {
+    setDropdown(false);
+    if (loggedIn) {
+      navigate('/profile');      // ✅ Kalau sudah login → ke profile
+    } else {
+      navigate('/login');        // ✅ Kalau belum login → ke login
+    }
+  };
+
   const handleLogout = () => {
   setLoggedIn(false); 
   setDropdown(false); 
@@ -68,7 +77,9 @@ const Navbar = () => {
         />
         {dropdown && (
           <div className="dropdown">
-            <a href={loggedIn ? "#account" : "#login"}>Account</a>
+            <a href="#account" onClick={(e) => { e.preventDefault(); handleAccount(); }}>
+              Account
+            </a>
             <a href="#logout" onClick={(e) => { e.preventDefault(); handleLogout(); }}>
               Logout
             </a>

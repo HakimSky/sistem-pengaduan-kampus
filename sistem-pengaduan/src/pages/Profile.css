@@ -1,0 +1,92 @@
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f8fcff;
+}
+
+.profile-box {
+  background: white;
+  padding: 30px 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 350px;
+}
+
+.profile-box h3 {
+  color: #00ccff;
+  margin-bottom: 20px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.profile-pic {
+  background: white;
+  border-radius: 50%;
+  padding: 5px;
+  margin-right: 15px;
+}
+
+.profile-info h4 {
+  margin: 0;
+}
+
+.profile-info p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #555;
+}
+
+.profile-form {
+  text-align: left;
+}
+
+.profile-form label {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.input-icon {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  background: #fff;
+}
+
+.input-icon svg {
+  margin-right: 10px;
+  color: #888;
+}
+
+.input-icon input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+}
+
+.btn-save {
+  width: 100%;
+  padding: 12px;
+  background: #00ccff;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+

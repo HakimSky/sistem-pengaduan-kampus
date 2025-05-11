@@ -118,3 +118,16 @@
   background-color: #f8fcff;
 }
 
+.auth-left1,
+.auth-right1 {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8fcff;
+}
+
+.auth-right1 {
+  background-color: #e6f7ff;
+}
+
