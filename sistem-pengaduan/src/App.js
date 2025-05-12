@@ -4,6 +4,7 @@ import Notifications from './pages/Notifications';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
+import Pengaduan from './pages/Pengaduan';
 import './App.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/profile" element={<Profile />} /> 
+        <Route path="/pengaduan" element={<Pengaduan />} /> 
       </Routes>
     </Router>
   );

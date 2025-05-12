@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Profile.css';
 import { FiUser, FiPhone, FiCalendar, FiUsers } from 'react-icons/fi';
 
 const Profile = () => {
+  const [mobile, setMobile] = useState('');
+
+  const handleMobileChange = (e) => {
+    const value = e.target.value;
+    // Hapus semua karakter selain angka
+    const numericValue = value.replace(/\D/g, '');
+    setMobile(numericValue);
+  };
+
   return (
     <div className="profile-container">
       <div className="profile-box">
@@ -28,7 +37,10 @@ const Profile = () => {
           <label>Contact Number</label>
           <div className="input-icon">
             <FiPhone />
-            <input type="int" placeholder="+62 85* **** ***" />
+            <input
+              type="text" placeholder="0858-67******" value={mobile} 
+              onChange={handleMobileChange} inputMode="numeric"
+            />
           </div>
 
           <label>Date Of Birth</label>

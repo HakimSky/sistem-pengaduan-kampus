@@ -1,9 +1,11 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import './Dashboard.css';
+import { useNavigate } from 'react-router-dom';
 import chartImg from '../assets/Image/chart.png';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Navbar />
@@ -15,7 +17,9 @@ const Dashboard = () => {
             <p>Temukan solusi untuk </p>
             <p>setiap keluhan akademikmu.</p>
             <p className="subtext">Laporkan masalahmu dengan mudah dan transparan</p>
-            <a className="btn" href="/form">Lapor</a>
+            <a button className="btn" onClick={() => navigate('/pengaduan')}>
+              Lapor
+            </a>
           </div>
           <img 
           className='Icon-image'
