@@ -13,6 +13,13 @@ class AdminVerifikasi(models.Model):
     catatan_admin = models.TextField(null=True, blank=True)  # Komentar tambahan dari admin
     waktu_verifikasi = models.DateTimeField(auto_now_add=True)
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        
+        # update field 'verifikasi' pada objek pengaduan yang terkait
+        self.pengaduan.verifikasi = self.status_verifikasi
+        self.pengaduan.save()
+
     def __str__(self):
         return f"{self.admin.username} - {self.status_verifikasi} - {self.pengaduan.kategori}"
     

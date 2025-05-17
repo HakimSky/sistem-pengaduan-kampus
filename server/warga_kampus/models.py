@@ -1,6 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class WargaKampus(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     nama = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     no_hp = models.CharField(max_length=15)

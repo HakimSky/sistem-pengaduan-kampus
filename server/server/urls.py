@@ -10,7 +10,7 @@ def api_root(request, format=None):
         'pihak-kampus': request.build_absolute_uri('/api/pihak-kampus/'),
         'pengaduan': request.build_absolute_uri('/api/pengaduan/'),
         'notifikasi': request.build_absolute_uri('/api/notifikasi/'),
-        'riwayat': request.build_absolute_uri('/api/riwayat/'),
+        'riwayat-pengaduan': request.build_absolute_uri('/api/riwayat-pengaduan/'),
         'login': request.build_absolute_uri('/api/login/'),
         'feedback': request.build_absolute_uri('/api/feedback/'),
         'admin': request.build_absolute_uri('/api/admin/'),
