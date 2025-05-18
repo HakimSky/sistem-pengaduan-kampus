@@ -6,5 +6,5 @@ class RiwayatPengaduanConfig(AppConfig):
     name = 'riwayat_pengaduan'
 
     def ready(self):
-        import notifikasi.signals  # Menghubungkan signals saat app di-load
+        import riwayat_pengaduan.signals  # Menghubungkan signals saat app di-load
 

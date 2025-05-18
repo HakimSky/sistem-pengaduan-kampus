@@ -9,6 +9,6 @@ class AdminVerifikasiAdmin(admin.ModelAdmin):
 
 @admin.register(AdminManajemenAkun)
 class AdminManajemenAkunAdmin(admin.ModelAdmin):
-    list_display = ('admin', 'pengguna', 'aksi', 'waktu_aksi')
+    list_display = ('admin', 'user_yang_dikelola', 'aksi', 'waktu_aksi')
     list_filter = ('aksi',)
     search_fields = ('admin__username', 'pengguna__username')
