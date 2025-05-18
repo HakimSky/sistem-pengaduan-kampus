@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import Pengaduan
+from .serializers import PengaduanSerializer
 
-# Create your views here.
+class PengaduanViewSet(viewsets.ModelViewSet):
+    queryset = Pengaduan.objects.all()
+    serializer_class = PengaduanSerializer
