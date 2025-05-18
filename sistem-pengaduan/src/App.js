@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Pengaduan from './pages/Pengaduan';
+import Riwayat from './pages/Riwayat';
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/profile" element={<Profile />} /> 
         <Route path="/pengaduan" element={<Pengaduan />} /> 
+        <Route path="/riwayat" element={<Riwayat />} />
       </Routes>
     </Router>
   );

@@ -34,7 +34,9 @@ const Dashboard = () => {
             <p>Pastikan setiap permasalahan</p>
             <p>terselesaikan dengan baik.</p>
             <p className="subtext">Tetaplah terinformasi dengan perkembangan setiap pengaduanmu</p>
-            <a className="btn" href="/riwayat">Riwayat</a>
+            <a button className="btn" onClick={() => navigate('/riwayat')}>
+              Riwayat
+            </a>
           </div>
           <img src="/assets/tracking.png" alt="tracking" />
         </section>

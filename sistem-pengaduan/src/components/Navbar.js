@@ -4,13 +4,25 @@ import { FiBell } from 'react-icons/fi';
 import user1 from '../assets/Image/Profil/user1.jpeg';
 import defaultUser from '../assets/default-user.png';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [loggedIn, setLoggedIn] = useState(true);
   const [dropdown, setDropdown] = useState(false);
   const profileRef = useRef(null);
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const handleNavClick = (targetId) => {
+    if (location.pathname === '/') {
+      // Sudah di Dashboard, scroll langsung
+      const section = document.getElementById(targetId);
+      section?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Pindah ke dashboard, lalu scroll pakai query param
+      navigate(`/?scrollTo=${targetId}`);
+    }
+  }
 
   const handleProfileClick = () => {
     setDropdown(!dropdown);
