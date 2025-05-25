@@ -1,7 +1,9 @@
 from django.db import models
 from pengaduan.models import Pengaduan
+from django.contrib.auth.models import User
 
 class PihakKampus(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='pihak_kampus', null=True, blank=True)
     nama_kampus = models.CharField(max_length=255, default="UMS")
     department = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
