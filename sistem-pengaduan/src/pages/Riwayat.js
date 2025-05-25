@@ -1,48 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Riwayat.css';
 import Navbar from '../components/Navbar';
 import { FiClock, FiSettings, FiCheckCircle } from 'react-icons/fi';
 
-const laporanDummy = [
-  {
-    id: 1,
-    kategori: 'Jalan Berlubang',
-    status: 'Menunggu',
-    lokasi: 'Depan gedung J',
-    gambar: '/assets/jalan.jpg',
-    tanggal: '17/03/2022'
-  },
-  {
-    id: 2,
-    kategori: 'Toilet Rusak',
-    status: 'Proses',
-    lokasi: 'Toilet Pria Gedung J',
-    gambar: '/assets/toilet.jpg',
-    tanggal: '18/03/2022'
-  },
-  {
-    id: 3,
-    kategori: 'Kursi Rusak',
-    status: 'Selesai',
-    lokasi: 'J5em',
-    gambar: '/assets/kursi.jpg',
-    tanggal: '11/01/2022'
-  },
-  {
-    id: 4,
-    kategori: 'Lantai Rusak',
-    status: 'Selesai',
-    lokasi: 'J5em',
-    gambar: '/assets/lantai.jpg',
-    tanggal: '02/01/2022'
-  },
-];
-
 const Riwayat = () => {
   const [filter, setFilter] = useState('Semua');
+  const [riwayatData, setRiwayatData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredLaporan = laporanDummy.filter(l => {
+  // Fetch data riwayat dan detail pengaduan
+  useEffect(() => {
+    const fetchRiwayat = async () => {
+      try {
+        // Step 1: Ambil riwayat
+        const res = await fetch('http://127.0.0.1:8000/api/riwayat-pengaduan/riwayat-pengaduan/');
+        const riwayat = await res.json();
+
+        // Step 2: Ambil data pengaduan buat join
+        const resPengaduan = await fetch('http://127.0.0.1:8000/api/pengaduan/pengaduan/');
+        const pengaduan = await resPengaduan.json();
+
+        // Step 3: Gabungkan data
+        const fullData = riwayat.map(r => {
+          const pengaduanItem = pengaduan.find(p => p.id === r.pengaduan);
+          return {
+            id: r.id,
+            kategori: pengaduanItem ? pengaduanItem.kategori : 'Tidak diketahui',
+            status: r.status,
+            lokasi: pengaduanItem ? pengaduanItem.lokasi : 'Tidak diketahui',
+            gambar: pengaduanItem ? pengaduanItem.gambar : '/assets/default.jpg',
+            tanggal: new Date(r.waktu_perubahan).toLocaleDateString('id-ID')
+          };
+        });
+
+        setRiwayatData(fullData);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRiwayat();
+  }, []);
+
+  const filteredLaporan = riwayatData.filter(l => {
     if (filter === 'Semua') return true;
+    if (filter === 'Proses') return l.status === 'Diproses';
     return l.status === filter;
   });
 
@@ -58,18 +62,24 @@ const Riwayat = () => {
           </ul>
         </div>
         <div className="riwayat-content">
-          {filteredLaporan.map(l => (
-            <div className="riwayat-card" key={l.id}>
-              <img src={l.gambar} alt={l.kategori} />
-              <div className="card-info">
-                <h3>{l.kategori}</h3>
-                <p>Status : <strong>{l.status}</strong></p>
-                <p>📍 {l.lokasi}</p>
-                <button className="btn-detail">Detail Aduan</button>
-                <span className="tanggal">{l.tanggal}</span>
+          {loading ? (
+            <p>Memuat data...</p>
+          ) : filteredLaporan.length === 0 ? (
+            <p>Tidak ada riwayat.</p>
+          ) : (
+            filteredLaporan.map(l => (
+              <div className="riwayat-card" key={l.id}>
+                <img src={l.gambar} alt={l.kategori} />
+                <div className="card-info">
+                  <h3>{l.kategori}</h3>
+                  <p>Status : <strong>{l.status}</strong></p>
+                  <p>📍 {l.lokasi}</p>
+                  <button className="btn-detail">Detail Aduan</button>
+                  <span className="tanggal">{l.tanggal}</span>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </>
