@@ -1,0 +1,31 @@
+.notifications-container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.notifications-container h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notifications-list {
+  list-style: none;
+  padding: 0;
+}
+
+.notifications-list li {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.notifications-list li.unread {
+  background-color: #f5f5f5;
+}
+
+.notifications-list li.read {
+  background-color: #e0e0e0;
+}

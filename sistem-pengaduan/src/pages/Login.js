@@ -25,6 +25,7 @@ const Login = () => {
         console.log('User ID:', data.user_id);
         localStorage.setItem('user_id', data.user_id); // simpan user_id
         localStorage.setItem('username', username); // simpan username
+        localStorage.setItem('wargaKampus_nama',  data.wargaKampus_nama); // simpan wargaKampus_id
         window.location.href = '/'; // redirect ke dashboard
       } else {
         alert(data.message || 'Login gagal');
