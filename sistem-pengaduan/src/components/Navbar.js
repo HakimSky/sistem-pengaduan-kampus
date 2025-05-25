@@ -7,22 +7,35 @@ import { Link } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
   const [dropdown, setDropdown] = useState(false);
   const profileRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Saat halaman dimuat, cek apakah user sudah login
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('user_id');
+    const storedUsername = localStorage.getItem('username');
+
+    if (storedUserId && storedUsername) {
+      setLoggedIn(true);
+      setUsername(storedUsername);
+    } else {
+      setLoggedIn(false);
+      setUsername('');
+    }
+  }, []);
+
   const handleNavClick = (targetId) => {
     if (location.pathname === '/') {
-      // Sudah di Dashboard, scroll langsung
       const section = document.getElementById(targetId);
       section?.scrollIntoView({ behavior: 'smooth' });
     } else {
-      // Pindah ke dashboard, lalu scroll pakai query param
       navigate(`/?scrollTo=${targetId}`);
     }
-  }
+  };
 
   const handleProfileClick = () => {
     setDropdown(!dropdown);
@@ -31,18 +44,20 @@ const Navbar = () => {
   const handleAccount = () => {
     setDropdown(false);
     if (loggedIn) {
-      navigate('/profile');      // ✅ Kalau sudah login → ke profile
+      navigate('/profile');
     } else {
-      navigate('/login');        // ✅ Kalau belum login → ke login
+      navigate('/login');
     }
   };
 
   const handleLogout = () => {
-  setLoggedIn(false); 
-  setDropdown(false); 
-  navigate('/login');  
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('username');
+    setLoggedIn(false);
+    setUsername('');
+    setDropdown(false);
+    navigate('/login');
   };
-
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -64,21 +79,21 @@ const Navbar = () => {
 
       <div className="nav-wrapper">
         <ul className="nav-links">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#pengaduan">Pengaduan</a></li>
-          <li><a href="#riwayat">Riwayat</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="/" onClick={() => handleNavClick('home')}>Home</a></li>
+          <li><a href="/pengaduan" onClick={() => handleNavClick('pengaduan')}>Pengaduan</a></li>
+          <li><a href="/riwayat" onClick={() => handleNavClick('riwayat')}>Riwayat</a></li>
+          <li><a href="#about" onClick={() => handleNavClick('about')}>About</a></li>
+          <li><a href="#contact" onClick={() => handleNavClick('contact')}>Contact</a></li>
         </ul>
       </div>
 
       <div className="profile-wrapper" ref={profileRef} onClick={handleProfileClick}>
         <div className="profile-text">
-          {loggedIn ? "Hi, Putri" : "Hi, ?"}
-          <p>{loggedIn ? "Apakah ada laporan hari ini?" : "Apakah sudah daftar hari ini?"}</p>
+          {loggedIn ? `Hi, ${username}` : "Hi, Pengunjung"}
+          <p>{loggedIn ? "Apakah ada laporan hari ini?" : "Silakan login terlebih dahulu."}</p>
         </div>
 
-        <Link to="/notifications">
+        <Link to={loggedIn ? "/notifications" : "/login"}>
           <FiBell className="notif-icon" />
         </Link>
 
@@ -87,14 +102,21 @@ const Navbar = () => {
           className="profile-image"
           alt="profile"
         />
+
         {dropdown && (
           <div className="dropdown">
-            <a href="#account" onClick={(e) => { e.preventDefault(); handleAccount(); }}>
-              Account
-            </a>
-            <a href="#logout" onClick={(e) => { e.preventDefault(); handleLogout(); }}>
-              Logout
-            </a>
+            {loggedIn ? (
+              <>
+                <a href="#account" onClick={(e) => { e.preventDefault(); handleAccount(); }}>
+                  Account
+                </a>
+                <a href="#logout" onClick={(e) => { e.preventDefault(); handleLogout(); }}>
+                  Logout
+                </a>
+              </>
+            ) : (
+              <a href="/login">Login</a>
+            )}
           </div>
         )}
       </div>

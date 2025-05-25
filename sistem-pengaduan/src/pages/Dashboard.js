@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import './Dashboard.css';
 import { useNavigate } from 'react-router-dom';
 import chartImg from '../assets/Image/chart.png';
+import riwayatImg from '../assets/Image/Dashboard/Riwayat.png';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -38,7 +39,10 @@ const Dashboard = () => {
               Riwayat
             </a>
           </div>
-          <img src="/assets/tracking.png" alt="tracking" />
+          <img 
+          className='Icon-image'
+          src={riwayatImg} alt="tracking" 
+          />
         </section>
 
         {/* Section About */}
