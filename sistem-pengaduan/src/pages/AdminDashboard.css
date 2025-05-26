@@ -1,0 +1,245 @@
+/* Layout */
+.pk-dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f3f4f6;
+}
+
+/* AdminSidebar.css */
+/* .pk-sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #fff;
+  padding: 40px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #eee;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.03);
+}
+
+.pk-sidebar-title {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #111;
+}
+
+.pk-sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+  padding-left: 10px;
+}
+
+.pk-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 16px;
+  color: #111;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pk-menu-item:hover {
+  color: #6d28d9;
+}
+
+.pk-icon-wrapper {
+  background-color: #f1f1f1;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.pk-sidebar-footer {
+  display: flex;
+  justify-content: space-around;
+  font-size: 12px;
+  color: #999;
+  padding-top: 30px;
+  border-top: 1px solid #eee;
+} */
+
+/* Main Content */
+.pk-main-content {
+  flex: 1;
+  padding: 24px;
+}
+
+/* Header */
+.pk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.pk-header-menu a {
+  margin-right: 20px;
+  color: #555;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.pk-user-info {
+  display: flex;
+  align-items: center;
+}
+
+.pk-user-text {
+  margin-right: 10px;
+  text-align: right;
+}
+
+.pk-user-name {
+  font-weight: bold;
+  color: #0a65cc;
+}
+
+.pk-user-subtext {
+  font-size: 12px;
+  color: #888;
+}
+
+.pk-user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Stats Grid */
+.pk-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.pk-stat-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.pk-stat-title {
+  font-size: 14px;
+  color: #888;
+}
+
+.pk-stat-value {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.pk-progress-bar {
+  background: #eee;
+  height: 8px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.pk-progress-fill {
+  background: #8b5cf6;
+  height: 100%;
+}
+
+.pk-progress-percent {
+  margin-top: 5px;
+  color: #8b5cf6;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Circle Progress */
+.pk-circle-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+}
+
+.pk-circle-chart {
+  width: 80px;
+  height: 80px;
+  transform: rotate(-90deg);
+}
+
+.pk-circle-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 8;
+}
+
+.pk-circle {
+  fill: none;
+  stroke: #8b5cf6;
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+
+.pk-circle-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  color: #8b5cf6;
+}
+
+/* Chart */
+.pk-chart-container {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.pk-chart-title {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.pk-bar-chart {
+  display: flex;
+  align-items: flex-end;
+  height: 150px;
+  gap: 12px;
+}
+
+.pk-bar-wrapper {
+  text-align: center;
+  flex: 1;
+}
+
+.pk-bar {
+  background: #000;
+  width: 20px;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+.pk-bar-label {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #555;
+}
+
+/* User Card */
+.pk-user-card .pk-user-icon {
+  font-size: 36px;
+  color: #555;
+  margin-bottom: 8px;
+}

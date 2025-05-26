@@ -53,6 +53,18 @@ const Pengaduan = () => {
           <button className="btn-submit">Kirim</button>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-content">
+          <p className="footer-copy">&copy; 2025 El-Lapor. Semua Hak Dilindungi.</p>
+          <p className="footer-links">
+            <a href="/kebijakan">Kebijakan Privasi</a> |
+            <a href="/bantuan">Bantuan</a> |
+            <a href="/kontak">Kontak</a>
+          </p>
+        </div>
+      </footer>
     </>
   );
 };

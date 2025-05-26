@@ -101,3 +101,42 @@
   min-height: 50vh;
   min-width: 50vh; 
 }
+
+.footer {
+  background: linear-gradient(90deg, #ffffff); /* gradasi ungu kebiruan */
+  padding: 20px 0;
+  text-align: center;
+  /* oranye terang */
+  margin-top: 0px;
+  box-shadow: 0 -5px 15px #66dbff7d;
+}
+
+.footer-content {
+  max-width: 1500px;
+  margin: auto;
+  color: #000000;
+  margin: 12px;
+}
+
+.footer-copy {
+  margin: 0;
+  font-size: 14px;
+  color: #000000;
+}
+
+.footer-links {
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: #000000; /* oranye terang */
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #ff0000;
+  text-decoration: underline;
+}

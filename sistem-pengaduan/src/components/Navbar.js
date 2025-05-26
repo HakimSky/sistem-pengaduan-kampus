@@ -3,8 +3,7 @@ import './Navbar.css';
 import { FiBell } from 'react-icons/fi';
 import user1 from '../assets/Image/Profil/user1.jpeg';
 import defaultUser from '../assets/default-user.png';
-import { Link } from 'react-router-dom';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -13,36 +12,62 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleNavClick = (targetId) => {
-    if (location.pathname === '/') {
-      // Sudah di Dashboard, scroll langsung
-      const section = document.getElementById(targetId);
-      section?.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      // Pindah ke dashboard, lalu scroll pakai query param
-      navigate(`/?scrollTo=${targetId}`);
-    }
-  }
+  const handleNavClick = (target) => {
+    const path = location.pathname;
 
-  const handleProfileClick = () => {
-    setDropdown(!dropdown);
+    if (path === '/') {
+      // Kalau di dashboard, scroll ke elemen
+      const section = document.getElementById(target);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // Di luar dashboard, atur navigasi sesuai kebutuhan
+      switch (target) {
+        case 'home':
+          navigate('/', { state: { scrollTo: '/' } });
+          break;
+        case 'about':
+          navigate('/', { state: { scrollTo: 'about' } });
+          break;
+        case 'contact':
+          navigate('/', { state: { scrollTo: 'contact' } });
+          break;
+        case 'pengaduan':
+          if (path === '/pengaduan') {
+            window.location.reload(); // refresh
+          } else {
+            navigate('/pengaduan');
+          }
+          break;
+        case 'riwayat':
+          if (path === '/riwayat') {
+            window.location.reload(); // refresh
+          } else {
+            navigate('/riwayat');
+          }
+          break;
+        // case 'riwayat':
+        //   navigate('/riwayat');
+        //   break;
+        default:
+          break;
+      }
+    }
   };
+
+  const handleProfileClick = () => setDropdown(!dropdown);
 
   const handleAccount = () => {
     setDropdown(false);
-    if (loggedIn) {
-      navigate('/profile');      // ✅ Kalau sudah login → ke profile
-    } else {
-      navigate('/login');        // ✅ Kalau belum login → ke login
-    }
+    navigate(loggedIn ? '/profile' : '/login');
   };
 
   const handleLogout = () => {
-  setLoggedIn(false); 
-  setDropdown(false); 
-  navigate('/login');  
+    setLoggedIn(false);
+    setDropdown(false);
+    navigate('/login');
   };
-
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -58,18 +83,17 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="logo" onClick={() => window.location.reload()}>
-        El-Lapor
-      </div>
-
+      <div className="logo" onClick={() => navigate('/')}>El-Lapor</div>
+      <div className="navbar-content">
       <div className="nav-wrapper">
         <ul className="nav-links">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#pengaduan">Pengaduan</a></li>
-          <li><a href="#riwayat">Riwayat</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><button onClick={() => handleNavClick('home')}>Home</button></li>
+          <li><button onClick={() => handleNavClick('pengaduan')}>Pengaduan</button></li>
+          <li><button onClick={() => handleNavClick('riwayat')}>Riwayat</button></li>
+          <li><button onClick={() => handleNavClick('about')}>About</button></li>
+          <li><button onClick={() => handleNavClick('contact')}>Contact</button></li>
         </ul>
+      </div>
       </div>
 
       <div className="profile-wrapper" ref={profileRef} onClick={handleProfileClick}>
@@ -87,6 +111,7 @@ const Navbar = () => {
           className="profile-image"
           alt="profile"
         />
+
         {dropdown && (
           <div className="dropdown">
             <a href="#account" onClick={(e) => { e.preventDefault(); handleAccount(); }}>
