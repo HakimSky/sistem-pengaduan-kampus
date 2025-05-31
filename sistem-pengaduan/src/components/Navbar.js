@@ -28,12 +28,47 @@ const Navbar = () => {
     }
   }, []);
 
-  const handleNavClick = (targetId) => {
-    if (location.pathname === '/') {
-      const section = document.getElementById(targetId);
-      section?.scrollIntoView({ behavior: 'smooth' });
+  const handleNavClick = (target) => {
+    const path = location.pathname;
+
+    if (path === '/') {
+      // Kalau di dashboard, scroll ke elemen
+      const section = document.getElementById(target);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
     } else {
-      navigate(`/?scrollTo=${targetId}`);
+      // Di luar dashboard, atur navigasi sesuai kebutuhan
+      switch (target) {
+        case 'home':
+          navigate('/', { state: { scrollTo: '/' } });
+          break;
+        case 'about':
+          navigate('/', { state: { scrollTo: 'about' } });
+          break;
+        case 'contact':
+          navigate('/', { state: { scrollTo: 'contact' } });
+          break;
+        case 'pengaduan':
+          if (path === '/pengaduan') {
+            window.location.reload(); // refresh
+          } else {
+            navigate('/pengaduan');
+          }
+          break;
+        case 'riwayat':
+          if (path === '/riwayat') {
+            window.location.reload(); // refresh
+          } else {
+            navigate('/riwayat');
+          }
+          break;
+        // case 'riwayat':
+        //   navigate('/riwayat');
+        //   break;
+        default:
+          break;
+      }
     }
   };
 
