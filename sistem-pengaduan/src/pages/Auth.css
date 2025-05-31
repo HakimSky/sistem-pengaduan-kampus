@@ -105,6 +105,11 @@
   height: 100vh;
 }
 
+.auth-page1 {
+  display: flex;
+  height: 120vh;
+}
+
 .auth-left,
 .auth-right {
   flex: 1;
