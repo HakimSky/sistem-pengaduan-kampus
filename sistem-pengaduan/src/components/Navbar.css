@@ -35,15 +35,17 @@
     padding: 0;
   }
   
-  .nav-links li a {
+  .nav-links li button {
+    all:unset;
     text-decoration: none;
     color: #000000;
     font-weight: 500;
   }
   
-  .nav-links li a:hover {
+  .nav-links li button:hover {
     text-decoration:underline;
-    text-decoration-color: red;
+    text-decoration-color: #00d9ff;
+    color: #00d9ff;
   }
   
   /* Profil */

@@ -73,18 +73,17 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="logo" onClick={() => window.location.reload()}>
-        El-Lapor
-      </div>
-
+      <div className="logo" onClick={() => navigate('/')}>El-Lapor</div>
+      <div className="navbar-content">
       <div className="nav-wrapper">
         <ul className="nav-links">
-          <li><a href="/" onClick={() => handleNavClick('home')}>Home</a></li>
-          <li><a href="/pengaduan" onClick={() => handleNavClick('pengaduan')}>Pengaduan</a></li>
-          <li><a href="/riwayat" onClick={() => handleNavClick('riwayat')}>Riwayat</a></li>
-          <li><a href="#about" onClick={() => handleNavClick('about')}>About</a></li>
-          <li><a href="#contact" onClick={() => handleNavClick('contact')}>Contact</a></li>
+          <li><button onClick={() => handleNavClick('home')}>Home</button></li>
+          <li><button onClick={() => handleNavClick('pengaduan')}>Pengaduan</button></li>
+          <li><button onClick={() => handleNavClick('riwayat')}>Riwayat</button></li>
+          <li><button onClick={() => handleNavClick('about')}>About</button></li>
+          <li><button onClick={() => handleNavClick('contact')}>Contact</button></li>
         </ul>
+      </div>
       </div>
 
       <div className="profile-wrapper" ref={profileRef} onClick={handleProfileClick}>
