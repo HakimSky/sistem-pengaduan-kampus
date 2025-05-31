@@ -25,3 +25,9 @@ class Pengaduan(models.Model):
 
     def __str__(self):
         return f"{self.kategori} - {self.verifikasi} - {self.status}"
+    
+class Kategori(models.Model):
+    nama = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nama

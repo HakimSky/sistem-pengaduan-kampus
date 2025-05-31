@@ -3,8 +3,7 @@ import './Navbar.css';
 import { FiBell } from 'react-icons/fi';
 import user1 from '../assets/Image/Profil/user1.jpeg';
 import defaultUser from '../assets/default-user.png';
-import { Link } from 'react-router-dom';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link , useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [loggedIn, setLoggedIn] = useState(false);

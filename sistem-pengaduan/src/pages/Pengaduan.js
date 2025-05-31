@@ -112,13 +112,18 @@ const Pengaduan = () => {
 
             <div className="input-icon">
               <FiTag />
-              <input
-                type="text"
-                placeholder="Kategori"
+              <select
                 value={kategori}
                 onChange={(e) => setKategori(e.target.value)}
                 required
-              />
+              >
+                <option value="">Pilih Kategori</option>
+                <option value="Jalan rusak">Jalan rusak</option>
+                <option value="Lantai rusak">Lantai rusak</option>
+                <option value="Fasilitas umum">Fasilitas umum</option>
+                <option value="Sampah">Sampah</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
             </div>
 
             <div className="input-icon">

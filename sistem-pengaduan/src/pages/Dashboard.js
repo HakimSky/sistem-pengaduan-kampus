@@ -1,12 +1,27 @@
-import React from 'react';
+import React, {useEffect}from 'react';
 import Navbar from '../components/Navbar';
 import './Dashboard.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , useLocation } from 'react-router-dom';
 import chartImg from '../assets/Image/chart.png';
 import riwayatImg from '../assets/Image/Dashboard/Riwayat.png';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    // Cek apakah ada perintah scrollTo dari halaman sebelumnya
+    if (location.state?.scrollTo) {
+      const targetId = location.state.scrollTo;
+      const section = document.getElementById(targetId);
+      if (section) {
+        // Delay kecil agar elemen sempat dirender sebelum scroll
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location]);
   return (
     <>
       <Navbar />

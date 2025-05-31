@@ -2,15 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 87vh;
   background: #f8fcff;
   /* margin-bottom: -9; */
-  margin-top: -50px
+  margin-top: -15px
 }
 
 .formulir-box {
   background: white;
-  padding: 50px 25px;
+  padding: 30px 25px;
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
   width: 350px;
@@ -22,7 +22,7 @@
   margin-left: 0;
   margin-top: -0px;
   justify-content: left;
-  margin-bottom: 50px;
+  margin-bottom:50px;
 }
 
 .formulir-header1 {
@@ -31,7 +31,7 @@
   margin-left: 0;
   margin-top: -90px;
   justify-content: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .formulir-header1 h2 {
@@ -93,5 +93,5 @@
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 50px;
+  margin-top: 20px;
 }
