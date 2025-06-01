@@ -1,0 +1,152 @@
+/* DashboardPK.css */
+
+.dashboard-pk {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Sidebar */
+.pk-sidebar {
+  width: 220px;
+  background-color: #fff;
+  padding: 30px 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 0 16px 16px 0;
+}
+
+.pk-sidebar h2 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  color: #000;
+}
+
+.pk-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.pk-sidebar li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.pk-sidebar li:hover {
+  color: #00bfff;
+}
+
+.pk-sidebar li svg {
+  margin-right: 10px;
+}
+
+/* Main Content */
+.pk-main {
+  flex: 1;
+  padding: 30px 40px;
+}
+
+.pk-main .topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.pk-main .topbar nav a {
+  margin: 0 15px;
+  color: #000;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.pk-main .topbar nav a:hover {
+  color: #00bfff;
+}
+
+.pk-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pk-user-info .greeting {
+  font-size: 14px;
+  color: #777;
+}
+
+.pk-user-info img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+/* Report Cards */
+.pk-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pk-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  width: calc(33.333% - 20px);
+  min-width: 280px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pk-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.pk-card h4 {
+  font-size: 16px;
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.pk-card p {
+  font-size: 14px;
+  margin: 3px 0;
+  color: #555;
+}
+
+.pk-card .btn-detail {
+  margin-top: auto;
+  background-color: #00bfff;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pk-card .btn-detail:hover {
+  background-color: #00a6d6;
+}
+
+.pk-card .date {
+  font-size: 12px;
+  text-align: right;
+  color: #888;
+  margin-top: 8px;
+}

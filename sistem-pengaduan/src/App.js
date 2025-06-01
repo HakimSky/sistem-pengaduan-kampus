@@ -6,6 +6,8 @@ import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Pengaduan from './pages/Pengaduan';
 import Riwayat from './pages/Riwayat';
+import AdminDashboard from './pages/AdminDashboard';
+import DashboardPK from './pages/DashboardPK';
 import './App.css';
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
         <Route path="/profile" element={<Profile />} /> 
         <Route path="/pengaduan" element={<Pengaduan />} /> 
         <Route path="/riwayat" element={<Riwayat />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/pihakkampus" element={<DashboardPK />} />
       </Routes>
     </Router>
   );
