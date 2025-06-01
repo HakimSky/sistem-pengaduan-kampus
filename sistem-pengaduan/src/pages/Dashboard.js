@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, {useEffect}from 'react';
 import Navbar from '../components/Navbar';
 import './Dashboard.css';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate , useLocation } from 'react-router-dom';
 import chartImg from '../assets/Image/chart.png';
+import riwayatImg from '../assets/Image/Dashboard/Riwayat.png';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -21,7 +22,6 @@ const Dashboard = () => {
       }
     }
   }, [location]);
-
   return (
     <>
       <Navbar />
@@ -33,9 +33,13 @@ const Dashboard = () => {
             <p>Temukan solusi untuk </p>
             <p>setiap keluhan akademikmu.</p>
             <p className="subtext">Laporkan masalahmu dengan mudah dan transparan</p>
-            <a className="btn" onClick={() => navigate('/pengaduan')}>Lapor</a>
+            <a button className="btn" onClick={() => navigate('/pengaduan')}>
+              Lapor
+            </a>
           </div>
-          <img className="Icon-image" src={chartImg} alt="Chart" />
+          <img 
+          className='Icon-image'
+          src={chartImg} alt="Chart" />
         </section>
 
         {/* Section Riwayat */}
@@ -46,9 +50,14 @@ const Dashboard = () => {
             <p>Pastikan setiap permasalahan</p>
             <p>terselesaikan dengan baik.</p>
             <p className="subtext">Tetaplah terinformasi dengan perkembangan setiap pengaduanmu</p>
-            <a className="btn" onClick={() => navigate('/riwayat')}>Riwayat</a>
+            <a button className="btn" onClick={() => navigate('/riwayat')}>
+              Riwayat
+            </a>
           </div>
-          <img src="/assets/tracking.png" alt="tracking" />
+          <img 
+          className='Icon-image'
+          src={riwayatImg} alt="tracking" 
+          />
         </section>
 
         {/* Section About */}
@@ -59,7 +68,7 @@ const Dashboard = () => {
             <p>dirancang untuk memudahkan</p>
             <p>dalam laporkan masalah</p>
             <p>akademik dan fasilitas kampus</p>
-            <p className="subtext">Komitmen untuk memberikan layanan yang cepat, transparan, dan responsif</p>
+            <p className="subtext">Komitmen untuk memberikan layanan yang cepat,transparan, dan responsif</p>
           </div>
         </section>
 
@@ -76,18 +85,17 @@ const Dashboard = () => {
           </div>
         </section>
       </div>
-
-      {/* Footer */}
-      <footer className="footer">
-        <div className="footer-content">
-          <p className="footer-copy">&copy; 2025 El-Lapor. Semua Hak Dilindungi.</p>
-          <p className="footer-links">
-            <a href="/kebijakan">Kebijakan Privasi</a> |
-            <a href="/bantuan">Bantuan</a> |
-            <a href="/kontak">Kontak</a>
-          </p>
-        </div>
-      </footer>
+    {/* Footer */}
+    <footer className="footer">
+      <div className="footer-content">
+        <p className="footer-copy">© {new Date().getFullYear()} El-Lapor. All rights reserved.</p>
+        <p className="footer-links">
+          <a href="/kebijakan">Kebijakan Privasi</a> |
+          <a href="/bantuan">Bantuan</a> |
+          <a href="/kontak">Kontak</a>
+        </p>
+      </div>
+    </footer>
     </>
   );
 };

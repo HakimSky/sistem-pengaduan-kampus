@@ -3,14 +3,29 @@ import './Navbar.css';
 import { FiBell } from 'react-icons/fi';
 import user1 from '../assets/Image/Profil/user1.jpeg';
 import defaultUser from '../assets/default-user.png';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link , useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
   const [dropdown, setDropdown] = useState(false);
   const profileRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Saat halaman dimuat, cek apakah user sudah login
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('user_id');
+    const storedUsername = localStorage.getItem('username');
+
+    if (storedUserId && storedUsername) {
+      setLoggedIn(true);
+      setUsername(storedUsername);
+    } else {
+      setLoggedIn(false);
+      setUsername('');
+    }
+  }, []);
 
   const handleNavClick = (target) => {
     const path = location.pathname;
@@ -56,15 +71,24 @@ const Navbar = () => {
     }
   };
 
-  const handleProfileClick = () => setDropdown(!dropdown);
+  const handleProfileClick = () => {
+    setDropdown(!dropdown);
+  };
 
   const handleAccount = () => {
     setDropdown(false);
-    navigate(loggedIn ? '/profile' : '/login');
+    if (loggedIn) {
+      navigate('/profile');
+    } else {
+      navigate('/login');
+    }
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('username');
     setLoggedIn(false);
+    setUsername('');
     setDropdown(false);
     navigate('/login');
   };
@@ -98,11 +122,11 @@ const Navbar = () => {
 
       <div className="profile-wrapper" ref={profileRef} onClick={handleProfileClick}>
         <div className="profile-text">
-          {loggedIn ? "Hi, Putri" : "Hi, ?"}
-          <p>{loggedIn ? "Apakah ada laporan hari ini?" : "Apakah sudah daftar hari ini?"}</p>
+          {loggedIn ? `Hi, ${username}` : "Hi, Pengunjung"}
+          <p>{loggedIn ? "Apakah ada laporan hari ini?" : "Silakan login terlebih dahulu."}</p>
         </div>
 
-        <Link to="/notifications">
+        <Link to={loggedIn ? "/notifications" : "/login"}>
           <FiBell className="notif-icon" />
         </Link>
 
@@ -114,12 +138,18 @@ const Navbar = () => {
 
         {dropdown && (
           <div className="dropdown">
-            <a href="#account" onClick={(e) => { e.preventDefault(); handleAccount(); }}>
-              Account
-            </a>
-            <a href="#logout" onClick={(e) => { e.preventDefault(); handleLogout(); }}>
-              Logout
-            </a>
+            {loggedIn ? (
+              <>
+                <a href="#account" onClick={(e) => { e.preventDefault(); handleAccount(); }}>
+                  Account
+                </a>
+                <a href="#logout" onClick={(e) => { e.preventDefault(); handleLogout(); }}>
+                  Logout
+                </a>
+              </>
+            ) : (
+              <a href="/login">Login</a>
+            )}
           </div>
         )}
       </div>
