@@ -1,0 +1,92 @@
+/* AdminLayout.css (Modern & Responsif) */
+:root {
+  --admin-primary-color: #4A90E2; /* Biru yang lebih modern */
+  --admin-secondary-color: #50E3C2; /* Mint/Turquoise untuk aksen */
+  --admin-text-color: #4A4A4A;
+  --admin-text-light-color: #7B7B7B;
+  --admin-bg-light: #F7F9FA; /* Background utama yang sangat terang */
+  --admin-bg-sidebar: #FFFFFF; /* Sidebar putih bersih */
+  --admin-border-color: #E8E8E8;
+  --admin-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --admin-sidebar-width: 240px;
+  --admin-sidebar-width-collapsed: 70px; /* Jika ada mode collapsed */
+  --admin-header-height: 60px; /* Jika ada header terpisah */
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--admin-bg-light);
+  color: var(--admin-text-color);
+  font-size: 14px; /* Ukuran font dasar lebih kecil untuk compact */
+}
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Styling untuk AdminSidebar (asumsi dari file AdminSidebar.css Anda) */
+/* Pastikan AdminSidebar.css Anda juga diperbarui agar konsisten */
+/* .pk-sidebar { ... } */
+
+.admin-main-content {
+  flex-grow: 1;
+  /* margin-left: var(--admin-sidebar-width); Jika sidebar selalu terbuka */
+  /* Jika sidebar bisa overlay di mobile, margin-left tidak diperlukan di mobile */
+  padding: 0; /* Padding akan dihandle oleh wrapper konten */
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden; /* Mencegah scroll horizontal yang tidak diinginkan */
+}
+
+.admin-content-wrapper {
+  padding: 20px 25px; /* Padding untuk konten di dalam main-content */
+  flex-grow: 1;
+  overflow-y: auto; /* Scroll hanya pada area konten jika melebihi tinggi */
+}
+
+
+.admin-page-title {
+  font-size: 22px; /* Lebih compact */
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px; /* Mengurangi margin */
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--admin-border-color);
+}
+
+/* Responsiveness */
+@media (max-width: 992px) { /* Tablet dan di bawahnya */
+  .admin-main-content {
+    margin-left: var(--admin-sidebar-width-collapsed); /* Jika ada sidebar collapsed */
+  }
+  .admin-content-wrapper {
+    padding: 15px 20px;
+  }
+  .admin-page-title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) { /* Mobile */
+  .admin-layout {
+    flex-direction: column; /* Atau sidebar menjadi overlay */
+  }
+  .admin-main-content {
+    margin-left: 0; /* Sidebar mungkin overlay atau tersembunyi */
+    width: 100%;
+  }
+  /* Contoh jika sidebar menjadi drawer/overlay di mobile */
+  /* .pk-sidebar.mobile-open { ... } */
+  /* .pk-hamburger { display: block !important; } */
+
+  .admin-content-wrapper {
+    padding: 15px;
+  }
+  .admin-page-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+}

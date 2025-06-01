@@ -1,245 +1,214 @@
-/* Layout */
-.pk-dashboard-container {
-  display: flex;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
-  background-color: #f3f4f6;
-}
-
-/* AdminSidebar.css */
-/* .pk-sidebar {
-  width: 250px;
-  height: 100vh;
-  background-color: #fff;
-  padding: 40px 20px 20px;
+/* AdminDashboard.css (Modern & Responsif) */
+.admin-dashboard-modern {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  border-right: 1px solid #eee;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.03);
+  gap: 25px; /* Jarak antar section */
 }
 
-.pk-sidebar-title {
-  font-size: 24px;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 40px;
-  color: #111;
+.dashboard-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Kolom lebih compact */
+  gap: 20px;
 }
 
-.pk-sidebar-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: flex-start;
-  padding-left: 10px;
+/* Di AdminDashboard.css atau file CSS global Anda */
+.av-button.danger {
+  background-color: #e74c3c; /* Warna merah untuk bahaya/logout */
+  color: white;
+  border: none;
+  border-radius: 5px; /* Sesuaikan dengan style Anda */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.pk-menu-item {
+.av-button.danger:hover {
+  background-color: #c0392b; /* Warna merah lebih gelap saat hover */
+}
+
+.stat-card-modern {
+  background-color: #FFFFFF;
+  padding: 18px; /* Padding lebih compact */
+  border-radius: 10px;
+  box-shadow: var(--admin-shadow, 0 2px 8px rgba(0, 0, 0, 0.06));
   display: flex;
   align-items: center;
-  gap: 16px;
-  font-size: 16px;
-  color: #111;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  gap: 15px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat-card-modern:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-.pk-menu-item:hover {
-  color: #6d28d9;
-}
-
-.pk-icon-wrapper {
-  background-color: #f1f1f1;
-  padding: 8px;
-  border-radius: 50%;
+.stat-card-icon {
+  width: 42px; /* Ukuran ikon lebih kecil */
+  height: 42px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+.stat-card-icon.warga { background-color: #4A90E2; } /* Biru */
+.stat-card-icon.pihak { background-color: #50E3C2; } /* Mint */
+.stat-card-icon.pending { background-color: #F5A623; } /* Oranye */
+
+.stat-card-info {
+  display: flex;
+  flex-direction: column;
 }
 
-.pk-sidebar-footer {
-  display: flex;
-  justify-content: space-around;
+.stat-card-title {
+  font-size: 13px; /* Lebih compact */
+  color: var(--admin-text-light-color, #7B7B7B);
+  margin-bottom: 3px;
+}
+
+.stat-card-value {
+  font-size: 22px; /* Lebih compact */
+  font-weight: 700;
+  color: var(--admin-text-color, #4A4A4A);
+  line-height: 1.2;
+}
+
+.stat-card-link {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
   font-size: 12px;
-  color: #999;
-  padding-top: 30px;
-  border-top: 1px solid #eee;
-} */
-
-/* Main Content */
-.pk-main-content {
-  flex: 1;
-  padding: 24px;
-}
-
-/* Header */
-.pk-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-}
-
-.pk-header-menu a {
-  margin-right: 20px;
-  color: #555;
+  color: var(--admin-primary-color, #4A90E2);
   text-decoration: none;
   font-weight: 500;
 }
+.stat-card-link:hover {
+  text-decoration: underline;
+}
 
-.pk-user-info {
+
+.dashboard-section-modern {
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: var(--admin-shadow, 0 2px 8px rgba(0, 0, 0, 0.06));
+}
+
+.dashboard-section-header-modern {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px; /* Mengurangi margin */
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--admin-border-color, #E8E8E8);
+}
+
+.dashboard-section-header-modern h3 {
+  margin: 0;
+  font-size: 18px; /* Lebih compact */
+  font-weight: 600;
+  color: #333;
+}
+
+.view-all-link-modern {
+  font-size: 13px; /* Lebih compact */
+  color: var(--admin-primary-color, #4A90E2);
+  text-decoration: none;
+  font-weight: 500;
+}
+.view-all-link-modern:hover {
+  text-decoration: underline;
+}
+
+.db-verif-list-modern {
+  display: grid;
+  /* grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); */
+  /* Untuk tampilan list vertikal yang lebih compact: */
+  grid-template-columns: 1fr; /* Satu kolom */
+  gap: 12px; /* Jarak antar item lebih kecil */
+}
+
+.db-verif-item-modern {
+  background-color: var(--admin-bg-light, #F7F9FA);
+  padding: 12px 15px; /* Padding lebih compact */
+  border-radius: 8px;
+  border: 1px solid var(--admin-border-color, #E8E8E8);
   display: flex;
   align-items: center;
-}
-
-.pk-user-text {
-  margin-right: 10px;
-  text-align: right;
-}
-
-.pk-user-name {
-  font-weight: bold;
-  color: #0a65cc;
-}
-
-.pk-user-subtext {
-  font-size: 12px;
-  color: #888;
-}
-
-.pk-user-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-
-/* Stats Grid */
-.pk-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-bottom: 24px;
-}
-
-.pk-stat-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-  text-align: center;
-}
-
-.pk-stat-title {
-  font-size: 14px;
-  color: #888;
-}
-
-.pk-stat-value {
-  font-size: 32px;
-  font-weight: bold;
-  margin: 10px 0;
-}
-
-.pk-progress-bar {
-  background: #eee;
-  height: 8px;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.pk-progress-fill {
-  background: #8b5cf6;
-  height: 100%;
-}
-
-.pk-progress-percent {
-  margin-top: 5px;
-  color: #8b5cf6;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-/* Circle Progress */
-.pk-circle-container {
-  position: relative;
-  width: 80px;
-  height: 80px;
-  margin: 0 auto;
-}
-
-.pk-circle-chart {
-  width: 80px;
-  height: 80px;
-  transform: rotate(-90deg);
-}
-
-.pk-circle-bg {
-  fill: none;
-  stroke: #eee;
-  stroke-width: 8;
-}
-
-.pk-circle {
-  fill: none;
-  stroke: #8b5cf6;
-  stroke-width: 8;
-  stroke-linecap: round;
-}
-
-.pk-circle-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-weight: bold;
-  color: #8b5cf6;
-}
-
-/* Chart */
-.pk-chart-container {
-  background: #fff;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-}
-
-.pk-chart-title {
-  margin-bottom: 16px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.pk-bar-chart {
-  display: flex;
-  align-items: flex-end;
-  height: 150px;
   gap: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.db-verif-item-modern:hover {
+  background-color: #eff5ff; /* Warna hover lembut */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.07);
 }
 
-.pk-bar-wrapper {
+.db-verif-item-image-wrapper {
+  width: 48px; /* Ukuran gambar thumbnail */
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #e0e0e0; /* Placeholder jika gambar tidak ada */
+}
+.db-verif-item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.db-verif-item-content {
+  flex-grow: 1;
+  min-width: 0; /* Mencegah teks overflow mengganggu layout flex */
+}
+
+.db-verif-item-title {
+  margin: 0 0 3px 0;
+  font-size: 14px; /* Lebih compact */
+  font-weight: 600;
+  color: var(--admin-text-color, #4A4A4A);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.db-verif-item-meta {
+  font-size: 12px; /* Lebih compact */
+  color: var(--admin-text-light-color, #7B7B7B);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.db-verif-item-meta svg {
+  flex-shrink: 0;
+}
+
+
+.db-verif-item-status {
+  padding: 3px 7px;
+  border-radius: 12px; /* Lebih rounded */
+  font-size: 10px; /* Lebih kecil */
+  font-weight: 600; /* Lebih tebal */
+  text-transform: uppercase;
+  color: white;
+  white-space: nowrap;
+  margin-left: auto; /* Dorong status ke kanan */
+  flex-shrink: 0;
+}
+.db-verif-status-belum-diverifikasi { background-color: #F5A623; color: #fff;} /* Oranye */
+.db-verif-status-diterima { background-color: #7ED321; } /* Hijau terang */
+.db-verif-status-ditolak { background-color: #D0021B; } /* Merah */
+
+.db-empty-state {
   text-align: center;
-  flex: 1;
+  padding: 20px;
+  color: var(--admin-text-light-color);
+  font-style: italic;
 }
 
-.pk-bar {
-  background: #000;
-  width: 20px;
-  border-radius: 5px;
-  margin: 0 auto;
-}
-
-.pk-bar-label {
-  font-size: 12px;
-  margin-top: 5px;
-  color: #555;
-}
-
-/* User Card */
-.pk-user-card .pk-user-icon {
-  font-size: 36px;
-  color: #555;
-  margin-bottom: 8px;
-}

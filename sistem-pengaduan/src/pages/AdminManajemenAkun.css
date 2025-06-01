@@ -1,0 +1,339 @@
+/* AdminManajemenAkun.css */
+.ama-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 10px; /* Gap between filter group and loader */
+}
+
+.ama-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Gap between filter elements */
+  flex-wrap: wrap; /* Allow filter elements to wrap */
+}
+
+.ama-filter-group > svg {
+  margin-right: 5px;
+  color: #555;
+}
+
+.ama-search-input,
+.ama-filter-select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #fff;
+  height: 38px; /* Consistent height */
+}
+
+.ama-search-input {
+  min-width: 220px; /* Adjust as needed */
+}
+
+.ama-inline-loader {
+  font-size: 14px;
+  color: #007bff;
+  padding: 8px 0; /* Align with inputs */
+}
+
+.ama-page-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  font-size: 16px;
+  color: #555;
+}
+
+.ama-loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: ama-spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes ama-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.ama-error-message-global {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #ef9a9a;
+}
+.ama-error-message-global p {
+  margin: 0 0 10px 0;
+}
+
+/* List Item Styling */
+.ama-list-item {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.ama-list-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border-color: #007bff; /* Highlight on hover */
+}
+
+.ama-list-item-main {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-grow: 1;
+  overflow: hidden; /* Prevent content overflow */
+}
+
+.ama-list-item-avatar {
+  width: 48px;
+  height: 48px;
+  min-width: 48px; /* Ensure avatar size */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+}
+.ama-list-item-avatar.role-super-admin { background-color: #c0392b; }
+.ama-list-item-avatar.role-admin-staff { background-color: #d35400; }
+.ama-list-item-avatar.role-pihak-kampus { background-color: #2980b9; }
+.ama-list-item-avatar.role-warga-kampus { background-color: #27ae60; }
+/* Default/fallback avatar color */
+.ama-list-item-avatar:not([class*="role-"]) { background-color: #7f8c8d; }
+
+
+.ama-list-item-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent text overflow */
+  flex-grow: 1;
+}
+
+.ama-list-item-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ama-list-item-meta,
+.ama-list-item-date {
+  font-size: 13px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ama-list-item-meta > svg, .ama-list-item-date > svg {
+    min-width: 13px; /* Ensure icon visibility */
+}
+
+.ama-meta-separator {
+  margin: 0 5px;
+  color: #ccc;
+}
+
+.ama-list-item-status-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Reduced gap */
+  min-width: 130px; /* Adjust as needed for status and button */
+  justify-content: flex-end;
+}
+
+.ama-status-chip {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+.ama-status-chip.ama-status-aktif { background-color: #e7f5e7; color: #34a853; border: 1px solid #a5d6a7; }
+.ama-status-chip.ama-status-nonaktif { background-color: #fdecea; color: #ea4335; border: 1px solid #f4c4c0; }
+
+.ama-button-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  padding: 5px;
+  display: flex; /* For better icon alignment */
+  align-items: center;
+  justify-content: center;
+}
+.ama-button-icon:hover { color: #007bff; }
+
+/* Detail Card Styling */
+.ama-card-detail {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  padding: 25px;
+  margin-top: 10px; /* Ensure spacing from controls or list */
+}
+
+.ama-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.ama-detail-title {
+  font-size: 22px;
+  color: #333;
+  margin: 0;
+}
+
+.ama-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns */
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.ama-detail-section-title {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #007bff;
+  margin-bottom: 12px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.ama-detail-section p {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  display: flex; /* Align icon and text */
+  align-items: center;
+  gap: 8px; /* Gap between icon and text */
+}
+.ama-detail-section p strong { color: #333; }
+.ama-detail-section p > svg { min-width: 16px; /* Ensure icon visibility */ }
+
+
+.ama-detail-actions-section {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.ama-action-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap; /* Allow buttons to wrap */
+}
+
+.ama-button {
+  padding: 9px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none; /* Remove underline if used as link */
+}
+
+.ama-button.primary { background-color: #007bff; color: white; }
+.ama-button.primary:hover { background-color: #0056b3; }
+.ama-button.success { background-color: #28a745; color: white; }
+.ama-button.success:hover { background-color: #1e7e34; }
+.ama-button.warning { background-color: #ffc107; color: #212529; }
+.ama-button.warning:hover { background-color: #e0a800; }
+.ama-button.danger { background-color: #dc3545; color: white; }
+.ama-button.danger:hover { background-color: #c82333; }
+.ama-button.secondary { background-color: #6c757d; color: white; }
+.ama-button.secondary:hover { background-color: #545b62; }
+.ama-button.outline { background-color: transparent; color: #007bff; border: 1px solid #007bff; }
+.ama-button.outline:hover { background-color: #007bff; color: white; }
+
+.ama-confirm-delete {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #fff3cd; /* Light yellow for warning */
+  border: 1px solid #ffeeba;
+  border-radius: 6px;
+}
+.ama-confirm-delete p { 
+  font-size: 14px; 
+  color: #856404; /* Dark yellow text */
+  margin-bottom: 10px;
+}
+
+.ama-empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 16px;
+  color: #777;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .ama-controls {
+    flex-direction: column;
+    align-items: stretch; /* Make filter group full width */
+  }
+  .ama-filter-group {
+    flex-direction: column;
+    align-items: stretch; /* Make filter elements full width */
+  }
+  .ama-search-input,
+  .ama-filter-select {
+    width: 100%; /* Full width on small screens */
+  }
+  .ama-list-item {
+    flex-direction: column;
+    align-items: flex-start; /* Align items to start */
+    gap: 10px;
+  }
+  .ama-list-item-status-actions {
+    width: 100%; /* Full width */
+    justify-content: space-between; /* Space out status and button */
+    margin-top: 10px;
+  }
+  .ama-detail-grid {
+    grid-template-columns: 1fr; /* Single column on small screens */
+  }
+}

@@ -8,6 +8,9 @@ import Pengaduan from './pages/Pengaduan';
 import Riwayat from './pages/Riwayat';
 import AdminDashboard from './pages/AdminDashboard';
 import DashboardPK from './pages/DashboardPK';
+import ProtectedRoute from './components/ProtectedRoute';
+import AdminVerifikasi from './pages/AdminVerifikasi';
+import AdminManajemenAkun from './pages/AdminManajemenAkun';
 import './App.css';
 
 function App() {
@@ -21,8 +24,13 @@ function App() {
         <Route path="/profile" element={<Profile />} /> 
         <Route path="/pengaduan" element={<Pengaduan />} /> 
         <Route path="/riwayat" element={<Riwayat />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin" element={
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>}/>
         <Route path="/pihakkampus" element={<DashboardPK />} />
+        <Route path="/admin/verifikasi" element={<AdminVerifikasi />} />
+        <Route path="/admin/akun" element={<AdminManajemenAkun />} />
       </Routes>
     </Router>
   );

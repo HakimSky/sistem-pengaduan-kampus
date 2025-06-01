@@ -1,0 +1,422 @@
+/* AdminVerifikasi.css (Modern, Compact, Responsif) */
+/* Variabel warna bisa diimpor dari AdminLayout.css atau didefinisikan ulang */
+:root {
+  --av-primary-color: #4A90E2;
+  --av-success-color: #7ED321;
+  --av-danger-color: #D0021B;
+  --av-warning-color: #F5A623;
+  --av-text-color: #4A4A4A;
+  --av-text-light: #7B7B7B;
+  --av-border-color: #E8E8E8;
+  --av-bg-light: #F7F9FA;
+  --av-bg-card: #FFFFFF;
+  --av-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  --av-font-compact: 13px;
+  --av-font-small: 12px;
+}
+
+.av-page-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: var(--av-text-light);
+}
+.av-page-loader .av-loader { margin-bottom: 10px; }
+
+.av-controls-modern {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px; /* Mengurangi margin */
+  padding: 10px;
+  background-color: var(--av-bg-card);
+  border-radius: 8px;
+  box-shadow: var(--av-shadow);
+}
+
+.av-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--av-text-light);
+}
+
+.av-filter-select-modern {
+  padding: 7px 10px; /* Padding lebih compact */
+  border-radius: 6px;
+  border: 1px solid var(--av-border-color);
+  background-color: #fff;
+  font-size: var(--av-font-compact);
+  min-width: 180px; /* Agar tidak terlalu kecil */
+  transition: border-color 0.2s ease;
+}
+.av-filter-select-modern:focus {
+  outline: none;
+  border-color: var(--av-primary-color);
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.av-inline-loader {
+  font-size: var(--av-font-small);
+  color: var(--av-text-light);
+  font-style: italic;
+}
+
+/* List Item (Ringkas) */
+.av-list-container-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Jarak antar item */
+}
+
+.av-list-item-modern {
+  background-color: var(--av-bg-card);
+  border-radius: 8px;
+  padding: 12px 15px; /* Padding lebih compact */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  cursor: pointer;
+  border: 1px solid var(--av-border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.av-list-item-modern:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  border-color: var(--av-primary-color);
+}
+
+.av-list-item-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-grow: 1;
+  min-width: 0; /* Untuk text-overflow */
+}
+
+.av-list-item-thumbnail {
+  width: 40px; /* Thumbnail lebih kecil */
+  height: 40px;
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: #e0e0e0;
+}
+.av-list-item-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.av-list-item-info {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.av-list-item-title {
+  font-size: 15px; /* Sedikit lebih besar dari meta */
+  font-weight: 600;
+  color: var(--av-text-color);
+  margin: 0 0 3px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.av-list-item-meta {
+  font-size: var(--av-font-small);
+  color: var(--av-text-light);
+  margin: 0 0 2px 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.av-meta-separator {
+  margin: 0 3px;
+  color: #ccc;
+}
+
+.av-list-item-date {
+  font-size: 11px;
+  color: #999;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.av-list-item-status-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.av-status-chip {
+  padding: 3px 8px; /* Padding lebih compact */
+  border-radius: 12px;
+  font-size: 10px; /* Font lebih kecil */
+  font-weight: 600;
+  text-transform: uppercase;
+  color: white;
+  white-space: nowrap;
+}
+.av-status-belum-diverifikasi { background-color: var(--av-warning-color); color: #fff; }
+.av-status-diterima { background-color: var(--av-success-color); }
+.av-status-ditolak { background-color: var(--av-danger-color); }
+.av-status-main-menunggu { background-color: #6c757d; } /* Abu-abu untuk status utama 'Menunggu' */
+.av-status-main-diproses { background-color: #17a2b8; } /* Info Biru */
+.av-status-main-selesai { background-color: #20c997; } /* Teal */
+
+
+.av-button-icon {
+  background: none;
+  border: none;
+  color: var(--av-text-light);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.av-button-icon:hover {
+  background-color: #f0f0f0;
+  color: var(--av-primary-color);
+}
+
+
+/* Detail View Card */
+.av-card-modern.detail-view {
+  margin-top: 15px; /* Jarak dari list jika ada */
+  padding: 20px; /* Padding standar */
+  border: 1px solid var(--av-border-color);
+  box-shadow: var(--av-shadow);
+}
+
+.av-detail-header-modern {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--av-border-color);
+}
+
+.av-detail-title {
+  font-size: 18px; /* Lebih compact */
+  font-weight: 600;
+  color: var(--av-primary-color);
+  margin: 0;
+}
+.av-button-close { color: var(--av-danger-color); }
+
+
+.av-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px 25px; /* Gap horizontal lebih besar */
+  margin-bottom: 18px;
+}
+
+.av-detail-section {
+  margin-bottom: 15px;
+}
+.av-detail-section-title {
+  display: block;
+  font-size: 13px; /* Lebih compact */
+  font-weight: 600;
+  color: var(--av-text-color);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.av-detail-section p {
+  font-size: var(--av-font-compact);
+  color: var(--av-text-light);
+  margin: 0 0 6px 0; /* Mengurangi margin bawah paragraf */
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Jarak ikon dan teks */
+}
+.av-detail-section p strong {
+  color: var(--av-text-color);
+  font-weight: 500;
+}
+
+.av-detail-image-container {
+  margin-top: 8px;
+}
+.av-detail-image {
+  max-width: 100%;
+  max-height: 350px; /* Batasi tinggi gambar */
+  border-radius: 8px;
+  border: 1px solid var(--av-border-color);
+  object-fit: contain; /* Agar gambar tidak terpotong */
+  background-color: #f0f0f0; /* Background jika gambar transparan */
+}
+
+.av-detail-deskripsi {
+  font-size: var(--av-font-compact);
+  color: var(--av-text-light);
+  line-height: 1.6;
+  background-color: var(--av-bg-light);
+  padding: 10px 12px;
+  border-radius: 6px;
+  max-height: 100px; /* Batasi tinggi awal deskripsi */
+  overflow: hidden;
+  position: relative;
+}
+.av-detail-deskripsi.expanded {
+  max-height: none; /* Tampilkan semua jika expanded */
+}
+.av-detail-deskripsi p {
+    margin:0;
+    gap: 0; /* Hapus gap ikon di sini */
+}
+
+.av-button-link {
+  background: none;
+  border: none;
+  color: var(--av-primary-color);
+  font-size: var(--av-font-small);
+  cursor: pointer;
+  padding: 5px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.av-button-link:hover {
+  text-decoration: underline;
+}
+
+.av-catatan-admin-display {
+  font-size: var(--av-font-compact);
+  background-color: #fff8e1; /* Kuning muda untuk catatan */
+  border-left: 3px solid var(--av-warning-color);
+  padding: 10px 12px;
+  border-radius: 4px;
+  color: #6d4c41; /* Teks coklat untuk kontras */
+  white-space: pre-wrap;
+}
+
+.av-detail-actions-section {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid var(--av-border-color);
+}
+
+.av-catatan-input-area {
+  margin-bottom: 12px;
+}
+.av-catatan-input-area label {
+  display: block;
+  font-size: var(--av-font-small);
+  font-weight: 500;
+  color: var(--av-text-light);
+  margin-bottom: 5px;
+}
+.av-catatan-input-area textarea {
+  width: 100%;
+  padding: 8px 10px; /* Padding lebih compact */
+  border-radius: 6px;
+  border: 1px solid var(--av-border-color);
+  font-size: var(--av-font-compact);
+  min-height: 70px; /* Tinggi minimal */
+  resize: vertical;
+  box-sizing: border-box; /* Penting agar padding tidak menambah lebar */
+}
+.av-catatan-input-area textarea:focus {
+  outline: none;
+  border-color: var(--av-primary-color);
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.av-action-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end; /* Tombol ke kanan */
+}
+
+.av-button {
+  padding: 8px 15px; /* Padding tombol lebih compact */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: var(--av-font-compact);
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: capitalize; /* Atau none jika tidak mau uppercase */
+}
+.av-button:hover { opacity: 0.85; }
+.av-button.primary { background-color: var(--av-primary-color); color: white; }
+.av-button.success { background-color: var(--av-success-color); color: white; }
+.av-button.danger { background-color: var(--av-danger-color); color: white; }
+.av-button.secondary { background-color: #6c757d; color: white; } /* Abu-abu */
+.av-button.outline {
+  background-color: transparent;
+  color: var(--av-primary-color);
+  border: 1px solid var(--av-primary-color);
+}
+.av-button.outline:hover {
+  background-color: rgba(74, 144, 226, 0.05);
+}
+
+
+.av-empty-state, .av-error-message { /* Styling konsisten */
+  text-align: center;
+  padding: 20px;
+  color: var(--av-text-light);
+  background-color: var(--av-bg-card);
+  border-radius: 8px;
+  margin-top: 15px;
+}
+.av-error-message {
+  color: var(--av-danger-color);
+  background-color: #fff2f2;
+  border: 1px solid var(--av-danger-color);
+}
+
+/* Responsiveness untuk AdminVerifikasi */
+@media (max-width: 768px) {
+  .av-controls-modern {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+  .av-filter-select-modern {
+    width: 100%;
+  }
+  .av-list-item-modern {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .av-list-item-status-actions {
+    width: 100%;
+    margin-top: 10px;
+    justify-content: space-between;
+  }
+  .av-detail-grid {
+    grid-template-columns: 1fr; /* Satu kolom di mobile */
+  }
+  .av-action-buttons {
+    flex-direction: column;
+  }
+  .av-action-buttons .av-button {
+    width: 100%;
+    justify-content: center;
+  }
+}

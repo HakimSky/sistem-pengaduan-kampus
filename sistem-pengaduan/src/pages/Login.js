@@ -26,7 +26,14 @@ const Login = () => {
         localStorage.setItem('user_id', data.user_id); // simpan user_id
         localStorage.setItem('username', username); // simpan username
         localStorage.setItem('wargaKampus_nama',  data.wargaKampus_nama); // simpan wargaKampus_id
-        window.location.href = '/'; // redirect ke dashboard
+        sessionStorage.setItem('is_staff', data.is_staff); // 🔥 Tambahkan ini!
+        if (data.is_staff === true) {
+          window.location.href = '/admin';
+        } else if (username.toLowerCase() === 'ums_x_1') {
+          window.location.href = '/pihakkampus';
+        } else {
+          window.location.href = '/'; // dashboard warga kampus
+      }
       } else {
         alert(data.message || 'Login gagal');
       }

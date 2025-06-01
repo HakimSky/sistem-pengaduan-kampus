@@ -84,6 +84,14 @@ TEMPLATES = [
     },
 ]
 
+# Izinkan frontend React mengakses API Django
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    'http://127.0.1:3000',  # Tambahkan ini jika perlu
+]
+
+# INI YANG PENTING ➜ izinkan cookie (credentials)
+CORS_ALLOW_CREDENTIALS = True
 WSGI_APPLICATION = 'server.wsgi.application'
 
 

@@ -24,7 +24,12 @@ class LoginView(APIView):
                 password=serializer.validated_data['password']
             )
             if user:
-                return Response({'message': 'Login berhasil', 'user_id': user.id})
+                return Response({
+                    'message': 'Login berhasil',
+                    'user_id': user.id,
+                    'is_staff': user.is_staff,  # ✅ kirim status admin
+                    'username': user.username   # (opsional) kirim username juga
+                })
             return Response({'error': 'Login gagal'}, status=status.HTTP_401_UNAUTHORIZED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

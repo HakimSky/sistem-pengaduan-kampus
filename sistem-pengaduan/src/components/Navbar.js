@@ -90,7 +90,7 @@ const Navbar = () => {
     setLoggedIn(false);
     setUsername('');
     setDropdown(false);
-    navigate('/login');
+    navigate('/');
   };
 
   useEffect(() => {
