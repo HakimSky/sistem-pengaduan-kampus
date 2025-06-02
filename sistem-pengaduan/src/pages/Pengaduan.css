@@ -1,11 +1,15 @@
+/* Pengaduan.css */
+
 .formulir-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 87vh;
+  align-items: flex-start; /* Ubah ke flex-start agar bisa scroll jika konten panjang */
+  min-height: calc(100vh - 70px); /* Sesuaikan 70px dengan tinggi Navbar Anda */
   background: #f8fcff;
-  /* margin-bottom: -9; */
-  margin-top: -15px
+  padding-top: 20px; /* Beri jarak dari navbar */
+  padding-bottom: 20px; /* Beri jarak di bawah */
+  margin-top: 0; /* Reset margin-top jika Navbar fixed atau ada di atas */
+  box-sizing: border-box;
 }
 
 .formulir-box {
@@ -13,43 +17,46 @@
   padding: 30px 25px;
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
-  width: 350px;
+  width: 100%;
+  max-width: 450px; /* Batasi lebar maksimum form */
+  box-sizing: border-box;
 }
 
 .formulir-header {
   display: flex;
   align-items: center;
   margin-left: 0;
-  margin-top: -0px;
+  margin-top: -10px; /* Sesuaikan jika perlu */
   justify-content: left;
-  margin-bottom:50px;
+  margin-bottom: 20px; /* Kurangi margin bottom agar lebih rapat dengan header1 */
 }
 
 .formulir-header1 {
   display: flex;
   align-items: center;
-  margin-left: 0;
-  margin-top: -90px;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px; /* Beri jarak lebih ke form elements */
+  margin-top: 0; /* Reset margin-top jika .formulir-header sudah memberi jarak */
 }
 
 .formulir-header1 h2 {
   color: #00ccff;
+  font-size: 24px;
 }
 
 .btn-back {
   background: transparent;
   border: none;
-  color: #00ccff;
+  color: #007bff; /* Warna biru standar untuk link/kembali */
   font-size: 14px;
   cursor: pointer;
   display: flex;
   align-items: center;
+  padding: 5px 0; /* Beri sedikit padding */
 }
 
 .btn-back svg {
-  margin-right: 5px;
+  margin-right: 8px; /* Perbesar jarak ikon */
 }
 
 .input-icon {
@@ -57,15 +64,17 @@
   align-items: center;
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 10px 12px;
-  margin-bottom: 15px;
+  padding: 0px 12px; /* Padding horizontal, vertikal diatur oleh tinggi input */
+  margin-bottom: 18px; /* Konsistenkan margin */
   background: #fff;
-  /* margin-bottom: 40px; */
+  min-height: 42px; /* Tinggi minimum konsisten */
+  box-sizing: border-box;
 }
 
 .input-icon svg {
-  margin-right: 10px;
+  margin-right: 12px; /* Jarak ikon ke input */
   color: #888;
+  flex-shrink: 0; /* Agar ikon tidak mengecil */
 }
 
 .input-icon input,
@@ -76,12 +85,30 @@
   width: 100%;
   font-size: 14px;
   background: transparent;
+  padding: 10px 0; /* Padding vertikal di dalam input */
+  color: #333;
+}
+.input-icon input::placeholder,
+.input-icon textarea::placeholder {
+    color: #aaa;
 }
 
+
+.input-icon select {
+  appearance: none; /* Hapus tampilan default browser */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: .65em auto;
+  padding-right: 30px; /* Ruang untuk ikon dropdown */
+}
+
+
 .input-icon textarea {
-  height: 40px;
+  min-height: 80px; /* Tinggi minimum textarea */
   max-height: 150px;
-  resize: vertical;         
+  resize: vertical;
+  padding: 10px 0; /* Samakan padding dengan input lain */
 }
 
 .btn-submit {
@@ -92,6 +119,188 @@
   color: white;
   border-radius: 8px;
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 25px;
+  transition: background-color 0.2s ease;
 }
+.btn-submit:hover {
+  background: #00a3cc;
+}
+.btn-submit:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.input-group-gambar {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 18px;
+  gap: 10px;
+}
+
+.file-input-container.input-icon {
+  flex-grow: 1;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0 12px; /* Untuk menyamakan tinggi dengan input lain */
+  display: flex; /* Untuk vertical align text/icon di dalamnya */
+  align-items: center; /* Untuk vertical align text/icon di dalamnya */
+}
+.file-input-container span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    color: #555;
+    /* padding: 10px 0; (sudah diatur oleh height .input-icon) */
+}
+.file-input-container svg { /* Ikon di sebelah teks pilih file */
+    margin-right: 10px; /* Jarak ikon ke teks */
+    color: #888;
+    flex-shrink: 0;
+}
+
+
+.btn-camera {
+  padding: 0 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+.btn-camera:hover {
+  background-color: #0056b3;
+}
+
+/* --- Modal Kamera --- */
+.camera-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85); /* Sedikit lebih gelap */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* Pastikan di atas elemen lain, termasuk Navbar jika ada */
+  padding: 10px; /* Padding agar modal tidak mentok tepi layar kecil */
+  box-sizing: border-box;
+}
+
+.camera-view {
+  background-color: #333; /* Background gelap untuk view kamera */
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 640px; /* Bisa disesuaikan */
+  max-height: 90vh;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+}
+
+.camera-feed { /* Berlaku untuk <video> dan <img> preview di modal */
+  width: 100%;
+  /* Aspek rasio akan dijaga oleh height:auto atau oleh video itu sendiri */
+  max-height: calc(90vh - 100px); /* (90vh tinggi modal - sekitar 100px untuk tombol & padding) */
+  border: 1px solid #444; /* Border gelap */
+  border-radius: 8px;
+  background-color: #111; /* Background sangat gelap jika video/gambar tidak load */
+  object-fit: contain; /* 'cover' akan zoom, 'contain' akan menampilkan keseluruhan */
+  margin-bottom: 15px;
+}
+
+.camera-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 0px; /* Lebih rapat dengan video/image */
+  flex-wrap: wrap;
+}
+
+/* Tombol di dalam modal kamera */
+.btn-capture,
+.btn-use-photo,
+.btn-retake,
+.btn-close-camera-inline {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s, opacity 0.2s;
+  color: white; /* Teks putih untuk tombol di modal gelap */
+}
+.btn-capture svg,
+.btn-use-photo svg,
+.btn-retake svg,
+.btn-close-camera-inline svg {
+    font-size: 16px;
+}
+
+.btn-capture { background-color: #28a745; } /* Hijau */
+.btn-use-photo { background-color: #007bff; } /* Biru */
+.btn-retake { background-color: #ffc107; color: #212529; } /* Kuning */
+.btn-close-camera-inline { background-color: #6c757d; } /* Abu-abu */
+
+.btn-capture:hover { background-color: #218838; }
+.btn-use-photo:hover { background-color: #0056b3; }
+.btn-retake:hover { background-color: #e0a800; }
+.btn-close-camera-inline:hover { background-color: #5a6268; }
+
+/* Style untuk Image Preview di Form Utama */
+.image-preview-container {
+  margin-top: 10px;
+  margin-bottom: 18px;
+  text-align: center;
+  border: 1px dashed #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+.image-preview-container p {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  color: #555;
+  font-weight: 500;
+}
+.image-preview {
+  max-width: 100%;
+  max-height: 200px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  object-fit: contain;
+}
+.btn-remove-preview {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-remove-preview:hover { background-color: #c82333; }
