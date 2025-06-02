@@ -28,7 +28,8 @@ function App() {
           <ProtectedRoute>
             <AdminDashboard />
           </ProtectedRoute>}/>
-        <Route path="/pihakkampus" element={<DashboardPK />} />
+        <Route path="/pihakkampus/*" element={<DashboardPK />} />
+        {/* Tanda "/*" di akhir path sangat penting */}
         <Route path="/admin/verifikasi" element={<AdminVerifikasi />} />
         <Route path="/admin/akun" element={<AdminManajemenAkun />} />
       </Routes>
