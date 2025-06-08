@@ -74,9 +74,13 @@ class AdminVerifikasi(models.Model):
         
         return f"Pengadu: {username_pengadu} | Kategori: {kategori_pengaduan} | Status Verifikasi: {self.status_verifikasi}"
 
+from django.db import models
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
 class AdminManajemenAkun(models.Model):
-    # Field admin yang melakukan aksi manajemen akun
-    admin = models.ForeignKey(User, on_delete=models.CASCADE)
+    # Field admin yang melakukan aksi manajemen akun (opsional, boleh NULL)
+    admin = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     # User yang akunnya dikelola
     user_yang_dikelola = models.ForeignKey(User, on_delete=models.CASCADE, related_name='akun_dikelola')
     
@@ -84,33 +88,31 @@ class AdminManajemenAkun(models.Model):
         ('Nonaktifkan Akun', 'Nonaktifkan Akun'),
         ('Aktifkan Akun', 'Aktifkan Akun'),
         ('Hapus Akun', 'Hapus Akun')
-        # Tambahkan aksi lain jika perlu, misal 'Reset Password', 'Ubah Role'
     ]
     aksi = models.CharField(max_length=50, choices=AKSI_CHOICES)
-    waktu_aksi = models.DateTimeField(auto_now_add=True) # Waktu aksi dilakukan
-    catatan_admin = models.TextField(null=True, blank=True) # Catatan terkait aksi
+    waktu_aksi = models.DateTimeField(auto_now_add=True)
+    catatan_admin = models.TextField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         """
         Override save method untuk menjalankan aksi manajemen akun setelah objek disimpan.
         """
+        # Validasi supaya admin gak aksi ke diri sendiri
+        if self.admin and self.user_yang_dikelola and self.admin == self.user_yang_dikelola and (self.aksi == 'Hapus Akun' or self.aksi == 'Nonaktifkan Akun'):
+            raise ValidationError("Admin tidak dapat melakukan aksi ini pada dirinya sendiri.")
+
         super().save(*args, **kwargs)
 
         # Jalankan aksi manajemen akun berdasarkan pilihan 'aksi'
-        # Pastikan user_yang_dikelola bukan admin yang sedang login untuk mencegah self-lockout
-        if self.admin == self.user_yang_dikelola and (self.aksi == 'Hapus Akun' or self.aksi == 'Nonaktifkan Akun'):
-            # Tambahkan logging atau raise exception jika perlu, untuk mencegah admin menonaktifkan/menghapus diri sendiri
-            print(f"PERINGATAN: Admin {self.admin.username} mencoba aksi '{self.aksi}' pada dirinya sendiri.")
-            return # Atau raise ValidationError("Admin tidak dapat melakukan aksi ini pada dirinya sendiri.")
-
-        if self.aksi == 'Hapus Akun':
-            self.user_yang_dikelola.delete()
-        elif self.aksi == 'Nonaktifkan Akun':
-            self.user_yang_dikelola.is_active = False
-            self.user_yang_dikelola.save(update_fields=['is_active'])
-        elif self.aksi == 'Aktifkan Akun':
-            self.user_yang_dikelola.is_active = True
-            self.user_yang_dikelola.save(update_fields=['is_active'])
+        if self.user_yang_dikelola:
+            if self.aksi == 'Hapus Akun':
+                self.user_yang_dikelola.delete()
+            elif self.aksi == 'Nonaktifkan Akun':
+                self.user_yang_dikelola.is_active = False
+                self.user_yang_dikelola.save(update_fields=['is_active'])
+            elif self.aksi == 'Aktifkan Akun':
+                self.user_yang_dikelola.is_active = True
+                self.user_yang_dikelola.save(update_fields=['is_active'])
 
     def __str__(self):
         """

@@ -12,29 +12,29 @@ const Login = () => {
     try {
       const response = await fetch('http://127.0.0.1:8000/api/login/login/', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // Pastikan cookie dikirim
         body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
-
       if (response.ok) {
         alert('Login berhasil!');
-        console.log('User ID:', data.user_id);
-        localStorage.setItem('user_id', data.user_id); // simpan user_id
-        localStorage.setItem('username', username); // simpan username
-        localStorage.setItem('wargaKampus_nama',  data.wargaKampus_nama); // simpan wargaKampus_id
-        sessionStorage.setItem('is_staff', data.is_staff); // 🔥 Tambahkan ini!
+        console.log('Response:', data);
+        localStorage.setItem('user_id', data.user_id);
+        localStorage.setItem('username', username);
+        sessionStorage.setItem('is_staff', data.is_staff);
+        // Simpan session key kalo ada
+        if (data.session_key) {
+          document.cookie = `sessionid=${data.session_key}; path=/; SameSite=Lax; Secure=false`; // False buat dev
+        }
         if (data.is_staff === true) {
           window.location.href = '/admin';
         } else if (username.toLowerCase() === 'ums_x_1') {
           window.location.href = '/pihakkampus';
         } else {
-          window.location.href = '/'; // dashboard warga kampus
-      }
+          window.location.href = '/';
+        }
       } else {
         alert(data.message || 'Login gagal');
       }
