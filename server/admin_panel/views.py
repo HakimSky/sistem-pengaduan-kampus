@@ -9,7 +9,7 @@ from rest_framework import permissions, status
 from rest_framework.decorators import action
 from .serializers import UserSerializer
 from rest_framework.authentication import SessionAuthentication
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 class AdminVerifikasiViewSet(viewsets.ModelViewSet):
     queryset = AdminVerifikasi.objects.all()
@@ -41,7 +41,7 @@ class AdminUserStats(APIView):
 class UserManagementViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     authentication_classes = [SessionAuthentication] # <--- GUNAKAN SESI UNTUK VIEWSET INI
-    permission_classes = [IsAdminUser]    
+    permission_classes = []    
 
     def get_queryset(self):
         # Mengambil semua user, bisa diurutkan atau difilter jika perlu

@@ -7,6 +7,8 @@ from django.contrib.auth import logout
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
 from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import ensure_csrf_cookie 
 
 class RegisterViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -16,6 +18,7 @@ class LoginView(APIView):
     def get(self, request):
         return Response({"message": "Gunakan POST untuk login dengan username & password"})
 
+    @method_decorator(ensure_csrf_cookie, name='dispatch') # <-- 2. GUNAKAN SEPERTI INI
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
@@ -24,16 +27,16 @@ class LoginView(APIView):
                 password=serializer.validated_data['password']
             )
             if user:
+                # Karena decorator sudah benar, ini akan berjalan tanpa error 500
                 return Response({
                     'message': 'Login berhasil',
                     'user_id': user.id,
-                    'is_staff': user.is_staff,  # ✅ kirim status admin
-                    'username': user.username   # (opsional) kirim username juga
+                    'is_staff': user.is_staff,
+                    'username': user.username
                 })
             return Response({'error': 'Login gagal'}, status=status.HTTP_401_UNAUTHORIZED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# login/views.py
 
 class LogoutView(APIView):
     def get(self, request):

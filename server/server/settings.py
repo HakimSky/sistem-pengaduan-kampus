@@ -52,10 +52,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -63,11 +63,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'server.urls'
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Jika pakai React di lokal
-    "http://localhost:8000",  # Jika pakai Django di lokal
-]
 
 TEMPLATES = [
     {
@@ -87,13 +82,22 @@ TEMPLATES = [
 # Izinkan frontend React mengakses API Django
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    'http://127.0.1:3000',  # Tambahkan ini jika perlu
+    "http://127.0.0.1:3000", # <-- Perbaiki menjadi seperti ini
 ]
 
 # INI YANG PENTING ➜ izinkan cookie (credentials)
 CORS_ALLOW_CREDENTIALS = True
 WSGI_APPLICATION = 'server.wsgi.application'
 
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+SESSION_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SECURE = False
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
