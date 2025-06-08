@@ -43,10 +43,18 @@ const Navbar = () => {
           navigate('/', { state: { scrollTo: '/' } });
           break;
         case 'about':
-          navigate('/', { state: { scrollTo: 'about' } });
+          if (path === '/about') {
+            window.location.reload(); // refresh
+          } else {
+            navigate('/about');
+          }
           break;
         case 'contact':
-          navigate('/', { state: { scrollTo: 'contact' } });
+          if (path === '/contact') {
+            window.location.reload(); // refresh
+          } else {
+            navigate('/contact');
+          }
           break;
         case 'pengaduan':
           if (path === '/pengaduan') {

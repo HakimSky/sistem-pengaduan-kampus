@@ -69,6 +69,9 @@ const Dashboard = () => {
             <p>dalam laporkan masalah</p>
             <p>akademik dan fasilitas kampus</p>
             <p className="subtext">Komitmen untuk memberikan layanan yang cepat,transparan, dan responsif</p>
+            <a button className="btn" onClick={() => navigate('/about')}>
+                    Selengkapnya
+                </a>
           </div>
         </section>
 
@@ -82,6 +85,11 @@ const Dashboard = () => {
               <br />📞 Telp: (0271) 123456
               <br />🕘 Jam Operasional: Senin - Jumat (08.00 - 16.00 WIB)
             </p1>
+            <p>
+              <a button className="btn" onClick={() => navigate('/contact')}>
+                    Info Kontak
+              </a>
+            </p>
           </div>
         </section>
       </div>

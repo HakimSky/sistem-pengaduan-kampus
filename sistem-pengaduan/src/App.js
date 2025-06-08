@@ -11,6 +11,8 @@ import DashboardPK from './pages/DashboardPK';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminVerifikasi from './pages/AdminVerifikasi';
 import AdminManajemenAkun from './pages/AdminManajemenAkun';
+import About from './pages/About';
+import Contact from './pages/Contact';
 import './App.css';
 
 function App() {
@@ -20,6 +22,9 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        {/* Ganti dengan komponen yang sesuai jika ada */}
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/profile" element={<Profile />} /> 
         <Route path="/pengaduan" element={<Pengaduan />} /> 

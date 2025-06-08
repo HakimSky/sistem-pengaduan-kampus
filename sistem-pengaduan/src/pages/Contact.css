@@ -1,0 +1,93 @@
+/* src/pages/Contact.css */
+.contact-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.contact-header h1 {
+    font-size: 3rem;
+    color: #2c3e50;
+}
+
+.contact-header p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    max-width: 600px;
+    margin: 0.5rem auto 0;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.contact-card {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Membuat Peta Google Responsif */
+.map-card {
+    grid-column: 1 / -1; /* Membuat kartu peta memanjang penuh */
+    padding: 0;
+    overflow: hidden; /* Menghindari peta keluar dari border-radius */
+}
+
+.map-responsive {
+    overflow: hidden;
+    padding-bottom: 35%; /* Rasio aspek peta, sesuaikan jika perlu */
+    position: relative;
+    height: 0;
+}
+
+.map-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.info-card h3 {
+    margin: 1rem 0 0.5rem 0;
+    font-size: 1.4rem;
+    color: #2c3e50;
+}
+
+.info-card p {
+    margin: 0.2rem 0;
+    color: #34495e;
+    line-height: 1.6;
+}
+
+.info-card a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.info-card a:hover {
+    text-decoration: underline;
+}
+
+.info-icon {
+    color: #3498db;
+}
