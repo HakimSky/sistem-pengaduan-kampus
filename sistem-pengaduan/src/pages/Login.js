@@ -13,34 +13,40 @@ const Login = () => {
       const response = await fetch('http://127.0.0.1:8000/api/login/login/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include', // Pastikan cookie dikirim
+        credentials: 'include', // Mengizinkan browser mengirim dan menerima cookie secara otomatis
         body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
+
       if (response.ok) {
         alert('Login berhasil!');
-        console.log('Response:', data);
+        console.log('Response dari server:', data);
+        
+        // Simpan data user ke localStorage
         localStorage.setItem('user_id', data.user_id);
-        localStorage.setItem('username', username);
+        localStorage.setItem('username', data.username);
         sessionStorage.setItem('is_staff', data.is_staff);
-        // Simpan session key kalo ada
-        if (data.session_key) {
-          document.cookie = `sessionid=${data.session_key}; path=/; SameSite=Lax; Secure=false`; // False buat dev
-        }
+
+        // Bagian untuk mengatur cookie manual DIHAPUS.
+        // Browser akan menangani cookie 'sessionid' secara otomatis dari response header
+        // yang dikirim oleh Django setelah fungsi login() berhasil.
+
+        // Logika redirect setelah login berhasil
         if (data.is_staff === true) {
-          window.location.href = '/admin';
-        } else if (username.toLowerCase() === 'ums_x_1') {
+          window.location.href = '/admin'; // Atau ke halaman dashboard admin
+        } else if (username.toLowerCase() === 'ums_x_1') { // Ganti dengan logika role pihak kampus yang lebih baik
           window.location.href = '/pihakkampus';
         } else {
-          window.location.href = '/';
+          window.location.href = '/'; // Redirect ke halaman utama untuk user biasa
         }
+
       } else {
-        alert(data.message || 'Login gagal');
+        alert(data.message || data.error || 'Login gagal. Periksa kembali username dan password.');
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('Terjadi kesalahan saat login');
+      console.error('Terjadi kesalahan saat proses login:', error);
+      alert('Terjadi kesalahan pada jaringan atau server.');
     }
   };
 

@@ -1,101 +1,167 @@
-import React, { useEffect, useState } from 'react';
-import './Riwayat.css';
+import React, { useEffect, useState, useMemo } from 'react';
+import './Riwayat.css'; // Pastikan CSS-nya ada
 import Navbar from '../components/Navbar';
-import { FiClock, FiSettings, FiCheckCircle } from 'react-icons/fi';
+import { 
+    FiClock, FiSettings, FiCheckCircle, FiList, FiX, 
+    FiTag, FiMapPin, FiCalendar, FiMessageSquare, FiArrowLeft 
+} from 'react-icons/fi';
 
+// Komponen untuk menampilkan SATU item riwayat dalam bentuk kartu di daftar
+const RiwayatCard = ({ item, onDetailClick }) => {
+    const pengaduan = item.pengaduan;
+    if (!pengaduan) return null;
+
+    return (
+        // Menambahkan onClick di sini agar seluruh kartu bisa diklik
+        <div className="riwayat-card" onClick={() => onDetailClick(item)}>
+            <img src={pengaduan.gambar} alt={pengaduan.kategori_display} />
+            <div className="card-info">
+                <h3>{pengaduan.judul || `Laporan ${pengaduan.kategori_display}`}</h3>
+                <p>Status : <strong className={`status-${item.status.toLowerCase()}`}>{item.status}</strong></p>
+                <p>📍 {pengaduan.lokasi}</p>
+                {/* Tombol ini sekarang hanya sebagai hiasan, karena seluruh kartu bisa diklik */}
+                <button className="btn-detail">Lihat Detail</button>
+                <span className="tanggal">{new Date(item.waktu_perubahan).toLocaleDateString('id-ID')}</span>
+            </div>
+        </div>
+    );
+};
+
+// ========================================================================
+// === GANTI KOMPONEN RiwayatDetail DENGAN VERSI BARU INI ===
+// ========================================================================
+const RiwayatDetail = ({ item, onClose }) => {
+    const pengaduan = item.pengaduan;
+
+    return (
+        <div className="riwayat-detail-view">
+            <div className="detail-header">
+                <button onClick={onClose} className="btn-back">
+                    <FiArrowLeft size={24} /> Kembali ke Daftar
+                </button>
+            </div>
+
+            {/* --- STRUKTUR BARU DIMULAI DARI SINI --- */}
+            <div className="detail-body">
+                {/* Kolom Kiri untuk Gambar */}
+                <div className="detail-image-container">
+                    <img src={pengaduan.gambar} alt="Gambar Detail Aduan" className="detail-image" />
+                </div>
+
+                {/* Kolom Kanan untuk Info */}
+                <div className="detail-info-container">
+                    <h3>{pengaduan.judul || `Laporan ${pengaduan.kategori_display}`}</h3>
+                    
+                    <div className="detail-section">
+                        <p><FiTag /> <strong>Kategori:</strong> {pengaduan.kategori_display}</p>
+                        <p><FiMapPin /> <strong>Lokasi:</strong> {pengaduan.lokasi}</p>
+                        <p><FiCalendar /> <strong>Tgl. Kejadian:</strong> {new Date(pengaduan.tanggal_kejadian).toLocaleDateString('id-ID')}</p>
+                    </div>
+
+                    <div className="detail-section">
+                        {/* Status Chip sekarang memiliki class dinamis untuk pewarnaan */}
+                        <p><strong>Status Laporan:</strong> <span className={`status-chip status-${item.status.toLowerCase().replace(/\s+/g, '-')}`}>{item.status}</span></p>
+                        <p><strong>Terakhir Diperbarui:</strong> {new Date(item.waktu_perubahan).toLocaleString('id-ID')}</p>
+                    </div>
+                    
+                    <div className="detail-section">
+                        <strong><FiMessageSquare /> Deskripsi Lengkap:</strong>
+                        <p className="deskripsi">{pengaduan.deskripsi || "Tidak ada deskripsi."}</p>
+                    </div>
+                </div>
+            </div>
+            {/* --- STRUKTUR BARU SELESAI --- */}
+        </div>
+    );
+};
+
+
+// Komponen Utama Halaman Riwayat
 const Riwayat = () => {
-  const [filter, setFilter] = useState('Semua');
-  const [riwayatData, setRiwayatData] = useState([]);
-  const [loading, setLoading] = useState(true);
+    const [riwayatPribadi, setRiwayatPribadi] = useState([]);
+    const [filter, setFilter] = useState('Semua');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    // --- STATE BARU: Untuk menyimpan item yang sedang dilihat detailnya ---
+    const [selectedItem, setSelectedItem] = useState(null);
 
-  // Fetch data riwayat dan detail pengaduan
-  useEffect(() => {
-    const fetchRiwayat = async () => {
-      try {
-        // Step 1: Ambil riwayat
-        const res = await fetch('http://127.0.0.1:8000/api/riwayat-pengaduan/riwayat-pengaduan/');
-        const riwayat = await res.json();
+    useEffect(() => {
+        const userId = localStorage.getItem('user_id');
+        if (!userId) {
+            setError("Tidak bisa menemukan user ID. Silakan login kembali.");
+            setLoading(false);
+            return;
+        }
 
-        // Step 2: Ambil data pengaduan buat join
-        const resPengaduan = await fetch('http://127.0.0.1:8000/api/pengaduan/pengaduan/');
-        const pengaduan = await resPengaduan.json();
+        const fetchSemuaRiwayat = async () => {
+            // ... (logika fetch tetap sama seperti sebelumnya) ...
+            setLoading(true);
+            setError(null);
+            try {
+                const res = await fetch('http://127.0.0.1:8000/api/riwayat-pengaduan/');
+                if (!res.ok) throw new Error(`Gagal memuat data. Status: ${res.status}`);
+                const data = await res.json();
+                const semuaRiwayat = data.results || data;
+                const riwayatMilikUser = semuaRiwayat.filter(
+                    item => item.pengaduan?.pelapor_user_id == userId
+                );
+                setRiwayatPribadi(riwayatMilikUser);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-        // Step 3: Gabungkan data
-        const fullData = riwayat.map(r => {
-          const pengaduanItem = pengaduan.find(p => p.id === r.pengaduan);
-          return {
-            id: r.id,
-            kategori: pengaduanItem ? pengaduanItem.kategori : 'Tidak diketahui',
-            status: r.status,
-            lokasi: pengaduanItem ? pengaduanItem.lokasi : 'Tidak diketahui',
-            gambar: pengaduanItem ? pengaduanItem.gambar : '/assets/default.jpg',
-            tanggal: new Date(r.waktu_perubahan).toLocaleDateString('id-ID')
-          };
-        });
+        fetchSemuaRiwayat();
+    }, []);
 
-        setRiwayatData(fullData);
-      } catch (err) {
-        console.error('Error fetching data:', err);
-      } finally {
-        setLoading(false);
-      }
+    const filteredRiwayat = useMemo(() => {
+        if (filter === 'Semua') return riwayatPribadi;
+        return riwayatPribadi.filter(item => item.status === filter);
+    }, [riwayatPribadi, filter]);
+
+    // --- FUNGSI BARU: Untuk menampilkan konten yang sesuai (list atau detail) ---
+    const renderContent = () => {
+        if (loading) return <p>Memuat riwayat...</p>;
+        if (error) return <p>Terjadi kesalahan: {error}</p>;
+
+        // Jika ada item yang dipilih, tampilkan komponen RiwayatDetail
+        if (selectedItem) {
+            return <RiwayatDetail item={selectedItem} onClose={() => setSelectedItem(null)} />;
+        }
+        
+        // Jika tidak, tampilkan daftar seperti biasa
+        if (filteredRiwayat.length === 0) {
+            return <p>Tidak ada riwayat dengan status "{filter}".</p>;
+        }
+        return filteredRiwayat.map(item => (
+            // Kirim fungsi untuk mengatur item terpilih ke setiap kartu
+            <RiwayatCard key={item.id} item={item} onDetailClick={setSelectedItem} />
+        ));
     };
 
-    fetchRiwayat();
-  }, []);
-
-  const filteredLaporan = riwayatData.filter(l => {
-    if (filter === 'Semua') return true;
-    if (filter === 'Proses') return l.status === 'Diproses';
-    return l.status === filter;
-  });
-
-  return (
-    <>
-      <Navbar />
-      <div className="riwayat-container">
-        <div className="riwayat-sidebar">
-          <ul>
-            <li onClick={() => setFilter('Menunggu')}><FiClock /> Menunggu</li>
-            <li onClick={() => setFilter('Proses')}><FiSettings /> Diproses</li>
-            <li onClick={() => setFilter('Selesai')}><FiCheckCircle /> Selesai</li>
-          </ul>
-        </div>
-        <div className="riwayat-content">
-          {loading ? (
-            <p>Memuat data...</p>
-          ) : filteredLaporan.length === 0 ? (
-            <p>Tidak ada riwayat.</p>
-          ) : (
-            filteredLaporan.map(l => (
-              <div className="riwayat-card" key={l.id}>
-                <img src={l.gambar} alt={l.kategori} />
-                <div className="card-info">
-                  <h3>{l.kategori}</h3>
-                  <p>Status : <strong>{l.status}</strong></p>
-                  <p>📍 {l.lokasi}</p>
-                  <button className="btn-detail">Detail Aduan</button>
-                  <span className="tanggal">{l.tanggal}</span>
+    return (
+        <>
+            <Navbar />
+            <div className="riwayat-container">
+                {/* --- LOGIKA BARU: Sembunyikan sidebar jika sedang melihat detail --- */}
+                {!selectedItem && (
+                    <div className="riwayat-sidebar">
+                        <ul>
+                            <li className={filter === 'Semua' ? 'active' : ''} onClick={() => setFilter('Semua')}><FiList /> Semua</li>
+                            <li className={filter === 'Menunggu' ? 'active' : ''} onClick={() => setFilter('Menunggu')}><FiClock /> Menunggu</li>
+                            <li className={filter === 'Diproses' ? 'active' : ''} onClick={() => setFilter('Diproses')}><FiSettings /> Diproses</li>
+                            <li className={filter === 'Selesai' ? 'active' : ''} onClick={() => setFilter('Selesai')}><FiCheckCircle /> Selesai</li>
+                        </ul>
+                    </div>
+                )}
+                <div className="riwayat-content">
+                    {renderContent()}
                 </div>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
-
-      {/* Footer */}
-      <footer className="footer">
-        <div className="footer-content">
-          <p className="footer-copy">&copy; 2025 El-Lapor. Semua Hak Dilindungi.</p>
-          <p className="footer-links">
-            <a href="/kebijakan">Kebijakan Privasi</a> |
-            <a href="/bantuan">Bantuan</a> |
-            <a href="/kontak">Kontak</a>
-          </p>
-        </div>
-      </footer>
-    </>
-  );
+            </div>
+        </>
+    );
 };
 
 export default Riwayat;

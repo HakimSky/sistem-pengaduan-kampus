@@ -96,3 +96,153 @@
   margin-top: 8px;
   color: #999;
 }
+
+/* Tambahkan ini di Riwayat.css */
+.riwayat-sidebar li.active {
+  background-color: #eaf5ff;
+  color: #007bff;
+  font-weight: 600;
+  border-right: 3px solid #007bff;
+}
+
+/* =========================================== */
+/* === STYLE BARU UNTUK TAMPILAN DETAIL === */
+/* =========================================== */
+
+/* Kontainer utama untuk layout 2 kolom */
+.detail-body {
+    display: flex;
+    gap: 24px; /* Jarak antara gambar dan info */
+    margin-top: 1rem;
+}
+
+/* Kolom kiri untuk gambar */
+.detail-image-container {
+    flex: 0 0 45%; /* Lebar kolom gambar sekitar 45% */
+    max-width: 45%;
+}
+
+.detail-image-container .detail-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 1px solid #eee;
+}
+
+/* Kolom kanan untuk informasi teks */
+.detail-info-container {
+    flex: 1; /* Otomatis mengisi sisa ruang */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.detail-info-container h3 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    color: #333;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+}
+
+.detail-section {
+    line-height: 1.6;
+}
+
+.detail-section p {
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Jarak antara ikon dan teks */
+    color: #555;
+}
+
+.detail-section strong {
+    color: #333;
+}
+
+.deskripsi {
+    color: #444;
+    white-space: pre-wrap; /* Agar format paragraf/enter tetap muncul */
+}
+
+
+/* =========================================== */
+/* === STYLE BARU UNTUK STATUS CHIP BERWARNA === */
+/* =========================================== */
+
+.status-chip {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Warna untuk setiap status */
+.status-chip.status-menunggu {
+    background-color: #f39c12; /* Oranye */
+}
+
+.status-chip.status-diproses {
+    background-color: #3498db; /* Biru */
+}
+
+.status-chip.status-selesai {
+    background-color: #2ecc71; /* Hijau */
+}
+
+.status-chip.status-ditolak {
+    background-color: #e74c3c; /* Merah (jika ada) */
+}
+
+
+/* =========================================== */
+/* === STYLE UNTUK RESPONSIVE (LAYAR KECIL) === */
+/* =========================================== */
+
+@media (max-width: 768px) {
+    .detail-body {
+        flex-direction: column; /* Ubah layout menjadi vertikal di layar kecil */
+    }
+
+    .detail-image-container,
+    .detail-info-container {
+        max-width: 100%; /* Lebar kolom menjadi penuh */
+    }
+}
+
+.riwayat-detail-view {
+ max-width: 800px; /* Sesuaikan lebar maksimum sesuai keinginan Anda */
+ margin: 2rem auto; /* Memberikan margin atas-bawah dan otomatis ke kiri-kanan untuk memusatkan */
+ padding: 2rem;
+ background-color: #fff;
+ border-radius: 8px;
+ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.detail-header {
+ margin-bottom: 1.5rem;
+}
+
+.btn-back {
+ background: none;
+ color: #007bff;
+ border: none;
+ padding: 0.5rem 1rem;
+ border-radius: 5px;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ gap: 0.5rem;
+ transition: background-color 0.3s ease;
+}
+
+.btn-back:hover {
+ background-color: #e9ecef;
+}
