@@ -136,3 +136,44 @@
   background-color: #e6f7ff;
 }
 
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.form-feedback {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+    font-size: 0.9em;
+}
+
+.form-feedback svg {
+    margin-right: 10px;
+    flex-shrink: 0; /* Mencegah ikon menyusut */
+}
+
+.form-feedback.success {
+    background-color: #e8f5e9; /* Hijau muda */
+    color: #2e7d32; /* Hijau tua */
+    border: 1px solid #c8e6c9;
+}
+
+.form-feedback.error {
+    background-color: #ffebee; /* Merah muda */
+    color: #c62828; /* Merah tua */
+    border: 1px solid #ffcdd2;
+}
+
+.btn-auth:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

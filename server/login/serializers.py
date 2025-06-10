@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from warga_kampus.models import WargaKampus
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 
 class RegisterSerializer(serializers.ModelSerializer):
     full_name = serializers.CharField(write_only=True)
@@ -48,3 +50,39 @@ class RegisterSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
+
+# --- SERIALIZER BARU UNTUK UBAH PASSWORD ---
+class ChangePasswordSerializer(serializers.Serializer):
+    """
+    Serializer untuk validasi data saat mengubah password ketika user sedang login.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
+    def validate_new_password(self, value):
+        # Menggunakan validator bawaan Django untuk kekuatan password
+        try:
+            validate_password(value)
+        except ValidationError as e:
+            raise serializers.ValidationError(list(e.messages))
+        return value
+
+# --- SERIALIZER BARU UNTUK RESET PASSWORD ---
+class PasswordResetRequestSerializer(serializers.Serializer):
+    """
+    Serializer untuk meminta reset password. Hanya butuh email.
+    """
+    email = serializers.EmailField(required=True)
+
+class PasswordResetConfirmSerializer(serializers.Serializer):
+    """
+    Serializer untuk mengkonfirmasi reset password dengan token.
+    """
+    new_password = serializers.CharField(required=True)
+
+    def validate_new_password(self, value):
+        try:
+            validate_password(value)
+        except ValidationError as e:
+            raise serializers.ValidationError(list(e.messages))
+        return value
