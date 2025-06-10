@@ -8,6 +8,7 @@ class WargaKampus(models.Model):
     no_hp = models.CharField(max_length=15)
     program_studi = models.CharField(max_length=100)
     jenis_kelamin = models.CharField(max_length=10, choices=[('Laki-laki', 'Laki-laki'), ('Perempuan', 'Perempuan')])
+    foto_profil = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
 
     def __str__(self):
         return self.nama

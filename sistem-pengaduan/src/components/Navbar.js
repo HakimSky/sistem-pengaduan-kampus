@@ -1,168 +1,161 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Navbar.css';
 import { FiBell } from 'react-icons/fi';
-import user1 from '../assets/Image/Profil/user1.jpeg';
 import defaultUser from '../assets/default-user.png';
-import { Link , useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
-  const [dropdown, setDropdown] = useState(false);
-  const profileRef = useRef(null);
-  const location = useLocation();
-  const navigate = useNavigate();
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [username, setUsername] = useState('');
+    const [dropdown, setDropdown] = useState(false);
+    const [profilePic, setProfilePic] = useState(defaultUser);
 
-  // Saat halaman dimuat, cek apakah user sudah login
-  useEffect(() => {
-    const storedUserId = localStorage.getItem('user_id');
-    const storedUsername = localStorage.getItem('username');
+    const profileRef = useRef(null);
+    const location = useLocation();
+    const navigate = useNavigate();
 
-    if (storedUserId && storedUsername) {
-      setLoggedIn(true);
-      setUsername(storedUsername);
-    } else {
-      setLoggedIn(false);
-      setUsername('');
-    }
-  }, []);
+    // Fungsi ini akan membaca ulang data dari localStorage untuk memperbarui state
+    const updateAuthState = () => {
+        const storedUserId = localStorage.getItem('user_id');
+        const storedUsername = localStorage.getItem('username');
+        const storedProfilePic = localStorage.getItem('profile_pic_url');
 
-  const handleNavClick = (target) => {
-    const path = location.pathname;
+        if (storedUserId && storedUsername) {
+            setLoggedIn(true);
+            setUsername(storedUsername);
+            if (storedProfilePic && storedProfilePic !== 'null' && storedProfilePic !== 'undefined') {
+                setProfilePic(storedProfilePic);
+            } else {
+                setProfilePic(defaultUser);
+            }
+        } else {
+            setLoggedIn(false);
+            setUsername('');
+            setProfilePic(defaultUser);
+        }
+    };
 
-    if (path === '/') {
-      // Kalau di dashboard, scroll ke elemen
-      const section = document.getElementById(target);
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      // Di luar dashboard, atur navigasi sesuai kebutuhan
-      switch (target) {
-        case 'home':
-          navigate('/', { state: { scrollTo: '/' } });
-          break;
-        case 'about':
-          if (path === '/about') {
-            window.location.reload(); // refresh
-          } else {
-            navigate('/about');
-          }
-          break;
-        case 'contact':
-          if (path === '/contact') {
-            window.location.reload(); // refresh
-          } else {
-            navigate('/contact');
-          }
-          break;
-        case 'pengaduan':
-          if (path === '/pengaduan') {
-            window.location.reload(); // refresh
-          } else {
-            navigate('/pengaduan');
-          }
-          break;
-        case 'riwayat':
-          if (path === '/riwayat') {
-            window.location.reload(); // refresh
-          } else {
-            navigate('/riwayat');
-          }
-          break;
-        // case 'riwayat':
-        //   navigate('/riwayat');
-        //   break;
-        default:
-          break;
-      }
-    }
-  };
+    // Mengatur listener untuk mendeteksi perubahan
+    useEffect(() => {
+        updateAuthState(); // Panggil saat komponen pertama kali dimuat
+        window.addEventListener('storage', updateAuthState); // Dengarkan sinyal dari halaman profil
+        return () => {
+            window.removeEventListener('storage', updateAuthState); // Cleanup listener
+        };
+    }, []);
 
-  const handleProfileClick = () => {
-    setDropdown(!dropdown);
-  };
+    // --- FUNGSI NAVIGASI YANG DIPERBAIKI (KEMBALI KE LOGIKA ASLI) ---
+    const handleNavClick = (target) => {
+        const path = location.pathname;
 
-  const handleAccount = () => {
-    setDropdown(false);
-    if (loggedIn) {
-      navigate('/profile');
-    } else {
-      navigate('/login');
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('user_id');
-    localStorage.removeItem('username');
-    setLoggedIn(false);
-    setUsername('');
-    setDropdown(false);
-    navigate('/');
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        // Jika sedang di halaman utama ('/'), maka scroll
+        if (path === '/') {
+            if (target === 'home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const section = document.getElementById(target);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        } else {
+            // Jika di halaman lain, lakukan navigasi
+            switch (target) {
+                case 'home':
+                    navigate('/'); // 'home' selalu kembali ke root
+                    break;
+                case 'pengaduan':
+                    navigate('/pengaduan');
+                    break;
+                case 'riwayat':
+                    navigate('/riwayat');
+                    break;
+                case 'about':
+                    navigate('/about');
+                    break;
+                case 'contact':
+                    navigate('/contact');
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+    
+    // Sisa fungsi Anda
+    const handleLogout = () => {
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('username');
+        localStorage.removeItem('profile_pic_url');
         setDropdown(false);
-      }
+        window.dispatchEvent(new Event('storage')); // Kirim sinyal agar state direset
+        navigate('/');
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+
+    const handleProfileClick = () => setDropdown(!dropdown);
+
+    const handleAccount = () => {
+        setDropdown(false);
+        navigate(loggedIn ? '/profile' : '/login');
     };
-  }, []);
 
-  return (
-    <nav className="navbar">
-      <div className="logo" onClick={() => navigate('/')}>El-Lapor</div>
-      <div className="navbar-content">
-      <div className="nav-wrapper">
-        <ul className="nav-links">
-          <li><button onClick={() => handleNavClick('home')}>Home</button></li>
-          <li><button onClick={() => handleNavClick('pengaduan')}>Pengaduan</button></li>
-          <li><button onClick={() => handleNavClick('riwayat')}>Riwayat</button></li>
-          <li><button onClick={() => handleNavClick('about')}>About</button></li>
-          <li><button onClick={() => handleNavClick('contact')}>Contact</button></li>
-        </ul>
-      </div>
-      </div>
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (profileRef.current && !profileRef.current.contains(event.target)) {
+                setDropdown(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
-      <div className="profile-wrapper" ref={profileRef} onClick={handleProfileClick}>
-        <div className="profile-text">
-          {loggedIn ? `Hi, ${username}` : "Hi, Pengunjung"}
-          <p>{loggedIn ? "Apakah ada laporan hari ini?" : "Silakan login terlebih dahulu."}</p>
-        </div>
+    return (
+        <nav className="navbar">
+            <div className="logo" onClick={() => navigate('/')}>El-Lapor</div>
+            <div className="navbar-content">
+                <div className="nav-wrapper">
+                    <ul className="nav-links">
+                        <li><button onClick={() => handleNavClick('home')}>Home</button></li>
+                        <li><button onClick={() => handleNavClick('pengaduan')}>Pengaduan</button></li>
+                        <li><button onClick={() => handleNavClick('riwayat')}>Riwayat</button></li>
+                        <li><button onClick={() => handleNavClick('about')}>About</button></li>
+                        <li><button onClick={() => handleNavClick('contact')}>Contact</button></li>
+                    </ul>
+                </div>
+            </div>
+            <div className="profile-wrapper" ref={profileRef}>
+                <div className="profile-text" onClick={handleProfileClick}>
+                    {loggedIn ? `Hi, ${username}` : "Hi, Pengunjung"}
+                    <p>{loggedIn ? "Apakah ada laporan hari ini?" : "Silakan login terlebih dahulu."}</p>
+                </div>
+                <Link to={loggedIn ? "/notifications" : "/login"}>
+                    <FiBell className="notif-icon" />
+                </Link>
+                
+                <img
+                    key={profilePic} // Memaksa re-render saat URL gambar berubah
+                    src={profilePic}
+                    className="profile-image"
+                    alt="profile"
+                    onClick={handleProfileClick}
+                    onError={(e) => { e.target.onerror = null; e.target.src = defaultUser; }}
+                />
 
-        <Link to={loggedIn ? "/notifications" : "/login"}>
-          <FiBell className="notif-icon" />
-        </Link>
-
-        <img
-          src={loggedIn ? user1 : defaultUser}
-          className="profile-image"
-          alt="profile"
-        />
-
-        {dropdown && (
-          <div className="dropdown">
-            {loggedIn ? (
-              <>
-                <a href="#account" onClick={(e) => { e.preventDefault(); handleAccount(); }}>
-                  Account
-                </a>
-                <a href="#logout" onClick={(e) => { e.preventDefault(); handleLogout(); }}>
-                  Logout
-                </a>
-              </>
-            ) : (
-              <a href="/login">Login</a>
-            )}
-          </div>
-        )}
-      </div>
-    </nav>
-  );
+                {dropdown && (
+                    <div className="dropdown">
+                        {loggedIn ? (
+                            <>
+                                <a href="#account" onClick={(e) => { e.preventDefault(); handleAccount(); }}>Account</a>
+                                <a href="#logout" onClick={(e) => { e.preventDefault(); handleLogout(); }}>Logout</a>
+                            </>
+                        ) : (
+                            <a href="/login">Login</a>
+                        )}
+                    </div>
+                )}
+            </div>
+        </nav>
+    );
 };
 
 export default Navbar;

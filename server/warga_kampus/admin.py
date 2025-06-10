@@ -3,5 +3,5 @@ from .models import WargaKampus
 
 @admin.register(WargaKampus)
 class WargaKampusAdmin(admin.ModelAdmin):
-    list_display = ('nama', 'email', 'no_hp', 'program_studi', 'jenis_kelamin')
+    list_display = ('nama', 'email', 'no_hp', 'program_studi', 'jenis_kelamin', 'foto_profil')
     search_fields = ('nama', 'email', 'program_studi')
