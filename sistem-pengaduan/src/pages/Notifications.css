@@ -1,31 +1,127 @@
-.notifications-container {
-  padding: 20px;
-  max-width: 600px;
-  margin: 0 auto;
+.notifications-page-container {
+    background-color: #f4f7f9;
+    min-height: calc(100vh - 70px); /* 70px adalah tinggi navbar Anda, sesuaikan jika perlu */
+    padding: 30px 20px;
 }
 
-.notifications-container h2 {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.notifications-box {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.07);
+    padding: 25px;
+}
+
+.notifications-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.notifications-header h2 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.6em;
+    color: #343a40;
+}
+
+.mark-all-read-btn {
+    background-color: #e7f3ff;
+    color: #007bff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.mark-all-read-btn:hover {
+    background-color: #007bff;
+    color: white;
 }
 
 .notifications-list {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 .notifications-list li {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 18px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    transition: background-color 0.2s, transform 0.2s;
+    border: 1px solid transparent;
+    position: relative;
 }
 
 .notifications-list li.unread {
-  background-color: #f5f5f5;
+    background-color: #f8fcff;
+    cursor: pointer;
+    border: 1px solid #dee9f5;
+}
+
+.notifications-list li.unread:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.1);
 }
 
 .notifications-list li.read {
-  background-color: #e0e0e0;
+    background-color: #fff;
+    opacity: 0.8;
+}
+
+.unread-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #007bff;
+    border-radius: 50%;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.notif-icon {
+    flex-shrink: 0;
+}
+
+.notif-content {
+    flex-grow: 1;
+}
+
+.notif-content p {
+    margin: 0 0 5px 0;
+    line-height: 1.5;
+    color: #495057;
+}
+
+.notif-content strong {
+    color: #212529;
+}
+
+.notif-content small {
+    color: #6c757d;
+}
+
+.loading-state,
+.no-notifications {
+    text-align: center;
+    padding: 50px;
+    color: #6c757d;
+}
+
+.no-notifications svg {
+    margin-bottom: 15px;
+    font-size: 2.8em;
+    opacity: 0.5;
 }

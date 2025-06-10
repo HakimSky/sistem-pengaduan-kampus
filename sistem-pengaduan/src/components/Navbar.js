@@ -1,109 +1,74 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './Navbar.css';
 import { FiBell } from 'react-icons/fi';
 import defaultUser from '../assets/default-user.png';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useNotifications } from '../context/NotificationContext'; 
 
 const Navbar = () => {
+    const { unreadCount, fetchNotifications } = useNotifications();
     const [loggedIn, setLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
     const [dropdown, setDropdown] = useState(false);
     const [profilePic, setProfilePic] = useState(defaultUser);
-
     const profileRef = useRef(null);
     const location = useLocation();
     const navigate = useNavigate();
 
-    // Fungsi ini akan membaca ulang data dari localStorage untuk memperbarui state
-    const updateAuthState = () => {
+    const updateAuthState = useCallback(() => {
         const storedUserId = localStorage.getItem('user_id');
         const storedUsername = localStorage.getItem('username');
         const storedProfilePic = localStorage.getItem('profile_pic_url');
-
+        
         if (storedUserId && storedUsername) {
             setLoggedIn(true);
             setUsername(storedUsername);
-            if (storedProfilePic && storedProfilePic !== 'null' && storedProfilePic !== 'undefined') {
-                setProfilePic(storedProfilePic);
-            } else {
-                setProfilePic(defaultUser);
-            }
+            setProfilePic(storedProfilePic && storedProfilePic !== 'null' ? storedProfilePic : defaultUser);
+            if(fetchNotifications) fetchNotifications();
         } else {
             setLoggedIn(false);
             setUsername('');
             setProfilePic(defaultUser);
         }
-    };
+    }, [fetchNotifications]);
 
-    // Mengatur listener untuk mendeteksi perubahan
     useEffect(() => {
-        updateAuthState(); // Panggil saat komponen pertama kali dimuat
-        window.addEventListener('storage', updateAuthState); // Dengarkan sinyal dari halaman profil
-        return () => {
-            window.removeEventListener('storage', updateAuthState); // Cleanup listener
-        };
-    }, []);
+        updateAuthState();
+        window.addEventListener('storage', updateAuthState);
+        return () => window.removeEventListener('storage', updateAuthState);
+    }, [updateAuthState]);
 
-    // --- FUNGSI NAVIGASI YANG DIPERBAIKI (KEMBALI KE LOGIKA ASLI) ---
+    const handleLogout = () => {
+        localStorage.clear();
+        setDropdown(false);
+        window.dispatchEvent(new Event('storage'));
+        navigate('/');
+    };
+    
     const handleNavClick = (target) => {
         const path = location.pathname;
-
-        // Jika sedang di halaman utama ('/'), maka scroll
         if (path === '/') {
-            if (target === 'home') {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-                const section = document.getElementById(target);
-                if (section) {
-                    section.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
+            if (target === 'home') { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+            else { const section = document.getElementById(target); if (section) section.scrollIntoView({ behavior: 'smooth' }); }
         } else {
-            // Jika di halaman lain, lakukan navigasi
             switch (target) {
-                case 'home':
-                    navigate('/'); // 'home' selalu kembali ke root
-                    break;
-                case 'pengaduan':
-                    navigate('/pengaduan');
-                    break;
-                case 'riwayat':
-                    navigate('/riwayat');
-                    break;
-                case 'about':
-                    navigate('/about');
-                    break;
-                case 'contact':
-                    navigate('/contact');
-                    break;
-                default:
-                    break;
+                case 'home': navigate('/'); break;
+                case 'pengaduan': navigate('/pengaduan'); break;
+                case 'riwayat': navigate('/riwayat'); break;
+                case 'about': navigate('/about'); break;
+                case 'contact': navigate('/contact'); break;
+                default: break;
             }
         }
     };
-    
-    // Sisa fungsi Anda
-    const handleLogout = () => {
-        localStorage.removeItem('user_id');
-        localStorage.removeItem('username');
-        localStorage.removeItem('profile_pic_url');
-        setDropdown(false);
-        window.dispatchEvent(new Event('storage')); // Kirim sinyal agar state direset
-        navigate('/');
-    };
-
     const handleProfileClick = () => setDropdown(!dropdown);
-
     const handleAccount = () => {
         setDropdown(false);
         navigate(loggedIn ? '/profile' : '/login');
     };
-
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (profileRef.current && !profileRef.current.contains(event.target)) {
-                setDropdown(false);
-            }
+            if (profileRef.current && !profileRef.current.contains(event.target)) setDropdown(false);
         };
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -128,19 +93,17 @@ const Navbar = () => {
                     {loggedIn ? `Hi, ${username}` : "Hi, Pengunjung"}
                     <p>{loggedIn ? "Apakah ada laporan hari ini?" : "Silakan login terlebih dahulu."}</p>
                 </div>
-                <Link to={loggedIn ? "/notifications" : "/login"}>
+                <Link to={loggedIn ? "/notifications" : "/login"} className="notification-bell">
+                    {unreadCount > 0 && <span className="notification-badge">{unreadCount}</span>}
                     <FiBell className="notif-icon" />
                 </Link>
-                
                 <img
-                    key={profilePic} // Memaksa re-render saat URL gambar berubah
+                    key={profilePic}
                     src={profilePic}
-                    className="profile-image"
-                    alt="profile"
+                    className="profile-image" alt="profile"
                     onClick={handleProfileClick}
-                    onError={(e) => { e.target.onerror = null; e.target.src = defaultUser; }}
+                    onError={(e) => { e.target.src = defaultUser; }}
                 />
-
                 {dropdown && (
                     <div className="dropdown">
                         {loggedIn ? (
@@ -148,9 +111,7 @@ const Navbar = () => {
                                 <a href="#account" onClick={(e) => { e.preventDefault(); handleAccount(); }}>Account</a>
                                 <a href="#logout" onClick={(e) => { e.preventDefault(); handleLogout(); }}>Logout</a>
                             </>
-                        ) : (
-                            <a href="/login">Login</a>
-                        )}
+                        ) : ( <a href="/login">Login</a> )}
                     </div>
                 )}
             </div>

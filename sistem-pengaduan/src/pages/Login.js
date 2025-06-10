@@ -1,50 +1,71 @@
 import React, { useState } from 'react';
-import './Auth.css'; // Pastikan path CSS ini benar
+import './Auth.css';
 import { FiUser, FiLock } from 'react-icons/fi';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebookF } from 'react-icons/fa';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(''); // State untuk menampilkan pesan error
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
-    setError(''); // Reset error setiap kali login
+    setError('');
+    setLoading(true);
+
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/login/login/', {
+      // Step 1: Lakukan autentikasi
+      const loginResponse = await fetch('http://127.0.0.1:8000/api/login/login/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include', // Mengizinkan browser mengirim dan menerima cookie secara otomatis
+        credentials: 'include',
         body: JSON.stringify({ username, password }),
       });
 
-      const data = await response.json();
+      const loginData = await loginResponse.json();
 
-      if (response.ok) {
-        // Simpan data user ke localStorage
-        localStorage.setItem('user_id', data.user_id);
-        localStorage.setItem('username', data.username);
-        sessionStorage.setItem('is_staff', data.is_staff);
-        
-        // Browser akan menangani cookie 'sessionid' secara otomatis.
-
-        // Logika redirect setelah login berhasil
-        if (data.is_staff === true) {
-          window.location.href = '/admin'; // Atau ke halaman dashboard admin
-        } else if (username.toLowerCase() === 'ums_x_1') { // Ganti dengan logika role pihak kampus yang lebih baik
-          window.location.href = '/pihakkampus';
-        } else {
-          window.location.href = '/'; // Redirect ke halaman utama untuk user biasa
-        }
-
-      } else {
-        setError(data.message || data.error || 'Login gagal. Periksa kembali username dan password.');
+      if (!loginResponse.ok) {
+        throw new Error(loginData.error || 'Username atau password salah.');
       }
-    } catch (error) {
-      console.error('Terjadi kesalahan saat proses login:', error);
-      setError('Terjadi kesalahan pada jaringan atau server.');
+
+      // Jika login berhasil, simpan data dasar
+      localStorage.setItem('user_id', loginData.user_id);
+      localStorage.setItem('username', loginData.username);
+      sessionStorage.setItem('is_staff', loginData.is_staff);
+
+      // Step 2: Ambil profil LENGKAP untuk mendapatkan URL gambar
+      const profileResponse = await fetch('http://127.0.0.1:8000/api/warga-kampus/warga-kampus/');
+      const profileList = await profileResponse.json();
+      
+      const userProfile = profileList.find(item => String(item.user) === String(loginData.user_id));
+
+      if (userProfile && userProfile.foto_profil_url) {
+        // Step 3: Simpan URL gambar ke localStorage
+        localStorage.setItem('profile_pic_url', userProfile.foto_profil_url);
+      } else {
+        // Jika tidak ada foto, pastikan item di localStorage kosong
+        localStorage.removeItem('profile_pic_url');
+      }
+      
+      // Step 4: Kirim sinyal bahwa penyimpanan sudah selesai
+      window.dispatchEvent(new Event('storage'));
+
+      // Step 5: Lakukan redirect
+      if (loginData.is_staff === true) {
+        window.location.href = '/admin';
+      } else if (username.toLowerCase() === 'ums_x_1') {
+        window.location.href = '/pihakkampus';
+      } else {
+        window.location.href = '/';
+      }
+
+    } catch (err) {
+      setError(err.message);
+      console.error('Terjadi kesalahan saat proses login:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,34 +77,21 @@ const Login = () => {
       <div className="auth-right">
         <div className="auth-box">
           <h2>Login</h2>
-          {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+          {error && <p style={{ color: 'red', textAlign: 'center', marginBottom: '15px' }}>{error}</p>}
           <div className="input-icon">
             <FiUser />
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+            <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
           </div>
           <div className="input-icon">
             <FiLock />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleLogin()} // Tambahan: login dengan tombol enter
-            />
+            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleLogin()} />
           </div>
-          
-          {/* --- PERUBAHAN DI SINI --- */}
           <div style={{ textAlign: 'right', width: '100%', marginTop: '10px', marginBottom: '15px' }}>
             <Link to="/forgot-password" style={{ fontSize: '0.9em' }}>Lupa Password?</Link>
           </div>
-          {/* --- AKHIR PERUBAHAN --- */}
-
-          <button className="btn-auth" onClick={handleLogin}>Login</button>
+          <button className="btn-auth" onClick={handleLogin} disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
           <div className="or-divider">or</div>
           <div className="social-login">
             <button><FcGoogle size={20} /></button>
