@@ -79,7 +79,7 @@ const DataDiriKampus = () => {
         <div className="pk-detail-section">
           <strong className="pk-detail-section-title"><FiUser /> Akun Terkait</strong>
           <p><strong>Username Akun Login:</strong> {pihakKampusData.username_akun_login || "N/A"}</p>
-          <p><strong>ID User Django Terkait:</strong> {pihakKampusData.user || "N/A"}</p>
+          {/* <p><strong>ID User Django Terkait:</strong> {pihakKampusData.user || "N/A"}</p> */}
           {/* Jika API detail mengirimkan email dari user Django terkait: */}
           {/* <p><strong>Email User:</strong> {pihakKampusData.user_email || "N/A"}</p> */}
         </div>

@@ -36,7 +36,7 @@ const PihakKampusNavbar = () => {
     localStorage.removeItem('current_pihak_kampus_id'); // Hapus yang baru
     localStorage.removeItem('current_nama_kampus_institusi'); // Hapus yang baru
     sessionStorage.removeItem('is_staff');
-    navigate('/login');
+    navigate('/');
   };
 
   return (
